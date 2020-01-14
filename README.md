@@ -1,12 +1,13 @@
-# (Creating now, please wait...)  
 # pixiv-extraction
 
-Quick and lossless download automation script in python3,  
-For Pixiv images and Ugoira(Pixivs animated image)
+Quick and lossless download automation script in python3  
+For Pixiv images and Ugoira(Pixiv's animated image)
+  
+!Currently are developed and tested only in Linux!  
+  
+Version: v0.6.0  
 
-!Currently are developed and tested only in Linux!
-
-
+###### use with respect at their server, Cheers.
 
 # Instalation  
   
@@ -114,11 +115,30 @@ Ctrl+C on the terminal
 if the list looks ok, type y and Enter.  
 
 **Where is saved?**  
-Images at save_images/  
-Ugoira at save_ugoira/  
+Images: save_images/  
+Ugoira: save_ugoira/  
   
-# Note  
+# Notes  
+**Ugoira**  
+Ugoira will be converted losslessly to mp4  
+  
+**Art filename**  
+By default, the art will be saved like ```<art-title>.jpg```, and if already exist, will be ```<art-title>(<artId>).jpg```  
+  
+if want to save like ```<artId>.jpg```, change the follow:  
+extraction.py  
+SAVE_FORMAT = 0  
+to  
+SAVE_FORMAT = 1  
+  
+**MAYBE: is better NOT  logout via pixiv web page(this may disable the cookie?)**  
+In case that pixiv-extraction are working, but after logout via pixiv web page aren't working,  
+Do the Step 1 to 3, and to “logout”, clean the pixiv cookie via browser.  
+  
 **Clean-up manually tmp/ in a while**  
 tmp/ folder is used to store ugoira temporary data, and all file inside(not tmp/ itself) can be deleted on the end of program.   
 ~~The author was scared to use folder deletion API~~ this may be fixed in future.
-
+  
+**In future, when pixiv make change in their site**  
+This programs probably will stop to work with some error message, And have to be updated to continue to work.  
+In that case, when I detect the change, I will announce the situation here, and hopefully fix it if I can.
