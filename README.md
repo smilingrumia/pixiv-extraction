@@ -32,7 +32,7 @@ cd pixiv-extraction
 ```
   
   
-## Copying your http header to  httpHeader/
+## Copy your http header to  httpHeader/
 Now, We will need your login-credential(Cookie) to get the art.  
   
 Is better to create an account only for this purpose because:  
