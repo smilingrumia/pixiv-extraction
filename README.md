@@ -1,1 +1,96 @@
 # pixiv-extraction
+
+quick and lossless download automation script in python3,  
+For Pixiv images and Ugoira(Pixivs animated image)
+
+!Currently are developed and tested only in Linux!
+
+
+
+# Instalation  
+  
+(The follow are tested on Ubuntu 16.04)  
+
+**Install the Dependency**  
+curl:       for http/https comunication  
+7-zip:         for unzip Ugoira  
+ffmpeg:     for lossless conversion of ugoira(images) to mp4  
+python3-tk: for clipboard downloading mode  
+python3:    if don’t have, install it too  
+  
+```
+sudo apt update
+sudo apt install curl p7zip-full ffmpeg python3-tk
+```
+  
+**Clone the source**
+```
+git clone https://github.com/smilingrumia/pixiv-extraction
+cd pixiv-extraction
+```
+  
+  
+## Copying your http header to  httpHeader/
+Now, We will need your login-credential(Cookie) to get the art.  
+  
+Is better to create an account only for this purpose because:  
+1.login-credential(Cookie) will be stored in plain text in httpHeader/.  
+2.if something goes wrong and the program end up leaking your cookie?  
+3.if pixiv decides to ban due to fast-downloading?  
+if you use your account only for viewing, and don’t might to recreate, may be OK.  
+  
+So beginning...  
+as browser, Firefox will be used.
+  
+**Step 1**  
+Login to Pixiv(With a lost-ok account)  
+Open an art  
+Address bar will look like:  ```https://www.pixiv.net/en/artworks/12345678```  
+  
+F12(open devtool) -> Network tab -> F5/Refresh the Pixiv page  
+A list in Network tab will be displayed.  
+May be on the top,  
+select: Domain(```www.pixiv.net```) File(12345678) Type(html)  
+  
+On the right window, goto Headers-> Request Headers  
+Turn ON Raw headers  
+Right Click -> select all -> Right Click -> copy  
+  
+Open httpHeader/pixiv_artpage with text-editor  
+select all, then paste you header(this will overwrit everything inside with your header)  
+(This Header must contain Cookie)  
+  
+Modify the:  
+Accept-Encoding: gzip, deflate, br  
+to  
+Accept-Encoding: deflate, br  
+  
+Save it.  
+  
+**Step 2**  
+Next in Network tab  
+select one with: Type(json)  
+And like Step 1, copy&pasete the header to httpHeader/pixiv_artpage  
+(This Header must contain Cookie and x-user-id)  
+  
+Modify the:  
+Accept-Encoding: gzip, deflate, br  
+to  
+Accept-Encoding: deflate, br  
+  
+Save it.  
+  
+Close the devtool.  
+  
+**Step 3**  
+Open some art(picture)  
+Right click 1 image -> Open link in new window  
+Address bar will look like: ```https://i.pximg.net/img-original/img/2016/01/02/03/04/05/12345678_p0.png```  
+  
+F12(open devtool) -> Network tab -> F5/Refresh the Pixiv page  
+On Network tab, select: Domain(```i.pixiv.net```) File(12345678_p0.png)  
+and paste the header to httpHeader/pixiv_art  
+if contain 'If-Modified-Since' exclude that line.  
+(This Header DON’T contain Cookie or x-user-id)  
+  
+Save it.  
