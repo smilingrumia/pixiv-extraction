@@ -1,6 +1,7 @@
+# (Creating now, please wait...)  
 # pixiv-extraction
 
-quick and lossless download automation script in python3,  
+Quick and lossless download automation script in python3,  
 For Pixiv images and Ugoira(Pixivs animated image)
 
 !Currently are developed and tested only in Linux!
@@ -94,3 +95,30 @@ if contain 'If-Modified-Since' exclude that line.
 (This Header DON’T contain Cookie or x-user-id)  
   
 Save it.  
+  
+# Run  
+**Normal mode**  
+```./extraction.py <url1> <url2> ...```  
+  
+this will look like  
+```./extraction.py https://www.pixiv.net/en/artworks/12345678 https://www.pixiv.net/en/artworks/23456789 ...```  
+  
+   
+**Clipboard mode**  
+```./extraction.py -c```  
+  
+Beginning Copy the arts url with: Right Click -> a  
+Copied URL shuld look like: ```https://www.pixiv.net/en/artworks/12345678```  
+  
+Ctrl+C on the terminal  
+if the list looks ok, type y and Enter.  
+
+**Where is saved?**  
+Images at save_images/  
+Ugoira at save_ugoira/  
+  
+# Note  
+**Clean-up manually tmp/ in a while**  
+tmp/ folder is used to store ugoira temporary data, and all file inside(not tmp/ itself) can be deleted on the end of program.   
+~~The author was scared to use folder deletion API~~ this may be fixed in future.
+
