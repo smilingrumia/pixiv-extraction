@@ -133,9 +133,9 @@ Then Drag&Drop ugoira.mp4 to player.
 This should play smooth, and no “title flicking”   
   
 **Art filename**  
-By default, the art will be saved like ```<art-title>.jpg```, and if already exist, will be ```<art-title>(<art-id>).jpg```  
+By default, the art will be saved like ```<art-title>_001.jpg```, and if already exist, will be ```<art-title>(<art-id>)_001.jpg```  
   
-if want to save like ```<art-id>.jpg```, change the follow:  
+if want to save like ```<art-id>_001.jpg```, change the follow:  
 extraction.py  
 SAVE_FORMAT = 0  
 to  
