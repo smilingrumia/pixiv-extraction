@@ -9,6 +9,10 @@ Version: v0.6.0
 
 ###### use with respect at their server, Cheers.
 
+
+Known bugs:  
+1.When do ./extraction.py -c, if clipboard is empty it will crash(copy some thing before run)  
+
 # Instalation  
   
 (The follow are tested on Ubuntu 16.04)  
