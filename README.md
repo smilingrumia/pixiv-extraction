@@ -72,7 +72,7 @@ Save it.
 **Step 2**  
 Next in Network tab  
 select one with: Type(json)  
-And like Step 1, copy&pasete the header to httpHeader/pixiv_artpage  
+And like Step 1, copy&pasete the header to httpHeader/pixiv_artlist~~pixiv_artpage~~  
 (This Header must contain Cookie and x-user-id)  
   
 Modify the:  
@@ -122,10 +122,20 @@ Ugoira: save_ugoira/
 **Ugoira**  
 Ugoira will be converted losslessly to mp4  
   
-**Art filename**  
-By default, the art will be saved like ```<art-title>.jpg```, and if already exist, will be ```<art-title>(<artId>).jpg```  
+**Player for ugoira.mp4**  
+Happy with your player?  
+If wanna try other, I suggest  mpv.  
+```
+sudo apt install mpv
+mpv --loop --idle=yes --force-window
+```
+Then Drag&Drop ugoira.mp4 to player.  
+This should play smooth, and no “title flicking”   
   
-if want to save like ```<artId>.jpg```, change the follow:  
+**Art filename**  
+By default, the art will be saved like ```<art-title>.jpg```, and if already exist, will be ```<art-title>(<art-id>).jpg```  
+  
+if want to save like ```<art-id>.jpg```, change the follow:  
 extraction.py  
 SAVE_FORMAT = 0  
 to  
