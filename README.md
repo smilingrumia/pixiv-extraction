@@ -2,28 +2,23 @@
   
 # pixiv-extraction
 
-Quick and lossless(bug finded.. will be fixed) download automation script in python3  
-For Pixiv images and Ugoira(Pixiv's animated image)
+Quick and lossless download automation script in python3 for Linux  
+To download Pixiv images and Ugoira(Pixiv's animated image)  
   
-!Currently are developed and tested only in Linux!  
-  
-Version: v0.6.0  
+Version: v0.7.0  
 
 ###### use with respect at their server, Cheers.
-
-
-Known bugs:  
-1.When do ./extraction.py -c, if clipboard is empty it will crash(copy some thing before run)  
-2.**!! Ugoira are lossy and aren’t equal as original !!**  
-&nbsp;Detail  
-&nbsp;&nbsp;Ugoira is VFR(variable frame rate)  and VFR wasn't implemented.  
-&nbsp;&nbsp;first frame are ignored,  
-&nbsp;&nbsp;On the next update(coming in days,) VFR will be implemented and fixed.  
-&nbsp;&nbsp;So plz update it wen are done, sorry for that.  
  
 # Instalation  
   
 (The follow are tested on Ubuntu 16.04)  
+
+**Clone the source**
+
+```
+git clone https://github.com/smilingrumia/pixiv-extraction   
+```
+
 
 **Install the Dependency**  
 curl:       for http/https comunication  
@@ -31,16 +26,24 @@ curl:       for http/https comunication
 ffmpeg:     for lossless conversion of ugoira(images) to mp4  
 python3-tk: for clipboard downloading mode  
 python3:    if don’t have, install it too  
+mp4fpsmod:  to make a VFR mp4  
   
 ```
 sudo apt update
 sudo apt install curl p7zip-full ffmpeg python3-tk
 ```
-  
-**Clone the source**
+
+Install mp4fpsmod:  
+Open [mp4fpsmod github](https://github.com/nu774/mp4fpsmod) -> Release -> DL the latest(here will be 0.26)
 ```
-git clone https://github.com/smilingrumia/pixiv-extraction
-cd pixiv-extraction
+tar xf mp4fpsmod-0.26.tar.gz
+cd mp4fpsmod-0.26
+./bootstrap.sh
+./configure
+make
+
+# move compiled binary to pixiv-extraction/
+mv ./mp4fpsmod <path>/pixiv-extraction/
 ```
   
   
@@ -70,8 +73,7 @@ On the right window, goto Headers-> Request Headers
 Turn ON Raw headers  
 Right Click -> select all -> Right Click -> copy  
   
-Open httpHeader/pixiv_artpage with text-editor  
-select all, then paste you header(this will overwrit everything inside with your header)  
+Open httpHeader/pixiv_artpage with text-editor and paste your header    
 (This Header must contain Cookie)  
   
 Modify the:  
@@ -84,7 +86,7 @@ Save it.
 **Step 2**  
 Next in Network tab  
 select one with: Type(json)  
-And like Step 1, copy&pasete the header to httpHeader/pixiv_artlist~~pixiv_artpage~~  
+And like Step 1, copy&pasete the header to httpHeader/pixiv_artlist  
 (This Header must contain Cookie and x-user-id)  
   
 Modify the:  
@@ -103,7 +105,7 @@ Address bar will look like: ```https://i.pximg.net/img-original/img/2016/01/02/0
   
 F12(open devtool) -> Network tab -> F5/Refresh the Pixiv page  
 On Network tab, select: Domain(```i.pixiv.net```) File(12345678_p0.png)  
-and paste the header to httpHeader/pixiv_art  
+and copy&paste the header to httpHeader/pixiv_art  
 if contain 'If-Modified-Since' exclude that line.  
 (This Header DON’T contain Cookie or x-user-id)  
   
@@ -125,6 +127,8 @@ Copied URL shuld look like: ```https://www.pixiv.net/en/artworks/12345678```
   
 Ctrl+C on the terminal  
 if the list looks ok, type y and Enter.  
+  
+To see version, just Run ./extraction.py  
 
 **Where is saved?**  
 Images: save_images/  
@@ -145,9 +149,9 @@ Then Drag&Drop ugoira.mp4 to player.
 This should play smooth, and no “title flicking”   
   
 **Art filename**  
-By default, the art will be saved like ```<art-title>_001.jpg```, and if already exist, will be ```<art-title>(<art-id>)_001.jpg```  
+By default, the art will be saved like ```art-title_001.jpg```, and if already exist, will be ```art-title(art-id)_001.jpg```  
   
-if want to save like ```<art-id>_001.jpg```, change the follow:  
+if want to save like ```art-id_001.jpg```, change the follow:  
 extraction.py  
 SAVE_FORMAT = 0  
 to  
@@ -164,3 +168,15 @@ tmp/ folder is used to store ugoira temporary data, and all file inside(not tmp/
 **In future, when pixiv make change in their site**  
 This programs probably will stop to work with some error message, And have to be updated to continue to work.  
 In that case, when I detect the change, I will announce the situation here, and hopefully fix it if I can.
+
+# Change Log
+```
+ v0.7.0  
+   Some Ugoira are VFR(variable frame rate), so VFR implementation was done.  
+   bug-fix: If clipboard are empty and run as clipboard-mode, it will crash.  
+   other small fix/changes.  
+   
+ v0.6.0  
+   Publish.  
+```
+      
