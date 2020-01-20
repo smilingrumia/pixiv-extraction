@@ -1,6 +1,6 @@
 # pixiv-extraction
 
-Quick and lossless download automation script in python3  
+Quick and lossless(bug finded.. will be fixed) download automation script in python3  
 For Pixiv images and Ugoira(Pixiv's animated image)
   
 !Currently are developed and tested only in Linux!  
@@ -12,7 +12,13 @@ Version: v0.6.0
 
 Known bugs:  
 1.When do ./extraction.py -c, if clipboard is empty it will crash(copy some thing before run)  
-
+2.**!! Ugoira are lossy and aren’t equal as original !!**  
+&nbsp;Detail  
+&nbsp;&nbsp;Ugoira is VFR(variable frame rate)  and VFR wasn't implemented.  
+&nbsp;&nbsp;first frame are ignored,  
+&nbsp;&nbsp;On the next update(coming in days,) VFR will be implemented and fixed.  
+&nbsp;&nbsp;So plz update it wen are done, sorry for that.  
+ 
 # Instalation  
   
 (The follow are tested on Ubuntu 16.04)  
