@@ -4,13 +4,13 @@
 
 
 # Pixiv
-def getHttpHeader_pixiv_artpage():
+def getHttpHeader_pixivArtPage():
   return getHttpHeader('httpHeader/pixiv_artpage')
 
-def getHttpHeader_pixiv_artlist():
+def getHttpHeader_pixivArtMeta():
   return getHttpHeader('httpHeader/pixiv_artlist')
 
-def getHttpHeader_pixiv_art():
+def getHttpHeader_pixivArtContent():
   return getHttpHeader('httpHeader/pixiv_art')
 
 

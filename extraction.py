@@ -8,6 +8,7 @@ import time
 import re
 from subprocess import Popen, call, PIPE
 from tkinter import Tk
+from shutil import copyfile
 
 # Move to script directory
 os.chdir( os.path.dirname(os.path.abspath(__file__)) )
@@ -30,7 +31,7 @@ SAVE_FORMAT = 0
 # includes
 exec(compile(open('support.py').read(),filename='support.py', mode='exec'))
 exec(compile(open('httpHeader.py').read(),filename='httpHeader.py', mode='exec'))
-exec(compile(open('pixiv_extraction.py').read(),filename='pixiv_extraction.py', mode='exec'))
+exec(compile(open('pixiv.py').read(),filename='pixiv.py', mode='exec'))
 
 
 # Main
@@ -48,9 +49,13 @@ if(len(sys.argv) > 1):
     urls = sys.argv[1:]
 # None Arg
 else:
+  print('[Version]')
+  print('  v0.7.0')
+  print('')
   print('[Usage]')
-  print('./exctaction.sh url1 url2 ...')
-  print('./exctaction.sh -c')
+  print('  ./exctaction.sh url1 url2 ...')
+  print('  ./exctaction.sh -c')
+  print('')
   sys.exit(0)
 
 
@@ -65,4 +70,5 @@ for url in urls:
 
 if( cnt > 1):
   print('Completed!')
+  sys.exit(0)
 

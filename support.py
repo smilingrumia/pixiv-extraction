@@ -24,11 +24,11 @@ def prepareToCurl(url, header):
 def getHttp(url, header):
   global DEVNULL
 
-  req = prepareToCurl(url, header)
-  #print(req)
+  c = prepareToCurl(url, header)
+  #print(c)
   #time.sleep(3)
 
-  p = Popen(req, stdout=PIPE, stderr=DEVNULL)
+  p = Popen(c, stdout=PIPE, stderr=DEVNULL)
   p.wait()
   if( p.returncode == 0):
     print('Ok: ' + url)
@@ -41,11 +41,11 @@ def getHttp(url, header):
 def getAndSaveHttp(url, header, save):
   global DEVNULL
 
-  req = prepareToCurl(url, header)
-  #print(req)
+  c = prepareToCurl(url, header)
+  #print(c)
   #time.sleep(3)
 
-  p = Popen(req, stdout=open(save,'wb'), stderr=DEVNULL)
+  p = Popen(c, stdout=open(save,'wb'), stderr=DEVNULL)
   p.wait()
   if( p.returncode == 0):
     print('Ok: ' + url)
@@ -66,26 +66,72 @@ def unzipAndSave(src, dst):
     return False
 
 
-def convertUgoiraToMp4(src, frate, dst):
+def convertUgoiraToMp4(isCfr, art_id, frate, frameLen, ext, output):
+  global TEMP_DIR
   global DEVNULL
 
-  ffmpegcmd = ['ffmpeg', '-y', '-framerate', str(frate), '-i', src, '-vcodec', 'copy', dst]
-  p = Popen(ffmpegcmd, stderr=DEVNULL)
-  p.wait()
-  if( p.returncode == 0):
-    return True
+  # for some reason, ffmpeg skip the first frame, so wi will make 2 first frame
+  for i in reversed(range(0, frameLen)):
+    src = TEMP_DIR + art_id + '/{:06d}.'.format(i) + ext
+    dst = TEMP_DIR + art_id + '/{:06d}.'.format(i+1) + ext
+    copyfile(src, dst)
+
+
+  # CFR(constant frame rate)
+  if(isCfr == True):
+    c = ['ffmpeg', '-y', '-framerate', str(frate), '-i', TEMP_DIR + art_id + '/%06d.'+ext, '-vcodec', 'copy', output]
+    p = Popen(c, stderr=DEVNULL)
+    p.wait()
+    if( p.returncode == 0):
+      return True
+    else:
+      return False
+
+  # VFR(variable frame rate)
   else:
-    return False
+    # make timecode
+    f=open(TEMP_DIR + art_id + '/timecode.txt', 'w')
+    print( '# timecode format v2',file=f)
+    print( '',file=f)
+    print( '0',file=f)
+    print( '1',file=f)
+    time=1
+    for t in frate:
+      time += t
+      print( str(time),file=f)
+    f.close()
+
+    # images -> mp4
+    c = ['ffmpeg', '-y', '-i', TEMP_DIR + art_id + '/%06d.'+ext, '-vcodec', 'copy', TEMP_DIR + art_id + '/ugoira.mp4']
+    p = Popen(c, stderr=DEVNULL)
+    p.wait()
+    if( p.returncode != 0):
+      return False
+
+    # make mp4 as vfr
+    #  is better to use -x ? 
+    c = ['./mp4fpsmod', '-o', output, '-x', '-t', TEMP_DIR + art_id + '/timecode.txt', TEMP_DIR + art_id + '/ugoira.mp4']
+    #c = ['./mp4fpsmod', '-o', output, '-t', TEMP_DIR + art_id + '/timecode.txt', TEMP_DIR + art_id + '/ugoira.mp4']
+    p = Popen(c, stderr=DEVNULL)
+    p.wait()
+    if( p.returncode == 0):
+      return True
+    else:
+      return False
 
 
 def getUrlsFromClipboard():
   r = Tk()
   r.withdraw()
 
-  # urllist, Ignoring the current clipboard data
-  urls = [r.clipboard_get()]
+  # Ignore the current clipboard data
+  try:
+    urls = [r.clipboard_get()]
+  except:
+    # is empty
+    urls = ['']
 
-  print('------------ Listening Clipboard ---------------')
+  print('------------ Listening on clipboard ---------------')
   try:
     while True:
       try:
@@ -99,7 +145,7 @@ def getUrlsFromClipboard():
   except:
     print()
   
-  print('---------- The follow will be downloaded -----------')
+  print('---------- The follow will be download ------------')
   for url in urls[1:]:
     print(url)
   
@@ -148,79 +194,141 @@ def excludeCharacterFromArtInfo(info):
 
 
 def prepareOutputFileName(output_dir, art_title, art_id, numTag, ext):
+  global SAVE_FORMAT
+
   at = excludeCharacterFromArtInfo(art_title)
   ai = excludeCharacterFromArtInfo(art_id)
   e = excludeCharacterFromArtInfo(ext)
 
-  try:
+  # title.jpg or title(id).jpg
+  if (SAVE_FORMAT == 0):
+    try:
+      if(numTag != ''):
+        f = open(output_dir + at + numTag + '.' + ext)
+      else:
+        f = open(output_dir + at + '.' + ext)
+      f.close()
+      # allready have title.jpg so return out/title(id).jpg
+      return output_dir + at + '(' + ai + ')' + numTag + '.' + e
+
+    # dont have title.jpg
+    except:
+      # return out/title_001.jpg
+      if(numTag != ''):
+        return output_dir + at + numTag + '.' + e
+      # return out/title.jpg
+      else:
+        return output_dir + at + '.' + e
+
+  # id.jpg
+  elif (SAVE_FORMAT == 1):
     if(numTag != ''):
-      f = open(output_dir + at + numTag + '.' + ext)
+      return output_dir + ai + numTag + '.' + e
     else:
-      f = open(output_dir + at + '.' + ext)
-    f.close()
-    return output_dir + at + '(' + ai + ')' + numTag + '.' + e
-  except:
-    if(numTag != ''):
-      return output_dir + at + numTag + '.' + e
-    else:
-      return output_dir + at + '.' + e
+      return output_dir + ai + '.' + e
 
 
+'''
+  Return
+    isOk True/False
+    type 0=CFR 1=VFR
+    frame-rate int=CFR,list=VFR
+    frame-length int
+'''
 def calculateFrameRate(ugoira_meta):
   try:
-  # frame-rate calculation
-    collected_delays = []
-    collected_delays_cnt = []
+    frames = []
+    delays = []
+    frame_delays = []
     cnt = 0
+
+    # Frames
+    for frame in re.findall('file\":\"([0-9]{1,6})\.',ugoira_meta.decode()):
+      f = int(frame)
+
+      # Strange frame?
+      if( f < 0 or f > 999999 ):
+        print('Strange frame')
+        return (False, 0, 0, 0)
+    
+      frames.append(f)
+      frame_delays.append(False)
+
+    # Delays
     for delay in re.findall('delay\"\:([0-9]{1,4})\}',ugoira_meta.decode()):
       d = int(delay)
 
       # Too much frame?
       if( cnt > 10000 ):
         print('Too much frame')
-        return False
+        return (False, 0, 0, 0)
       cnt += 1
-    
-      # Strange delay?
-      if( d <= 0 or d > 3000 ):
-        print('Strange delay')
-        return False
-    
-      # is first-seeing delay?
-      is_firstSeeing_delay = True
-      for i in range(0, len(collected_delays)):
-        if(collected_delays[i] == d):
-          is_firstSeeing_delay = False
-          collected_delays_cnt[i] = collected_delays_cnt[i] + 1
+
+      delays.append(d)
+
+    # Frame mismatch?
+    if( len(frames) != len(delays) ):
+      print('length of frames/delays mismatch')
+      return (False, 0, 0, 0)
+
+    # No frame?
+    if( len(frames) <= 0 or len(delays) <= 0 ):
+      print('length of frames/delays is less than 0?')
+      return (False, 0, 0, 0)
+
+    # Put delay on right place
+    for i in range(0, len(frames)):
+      if( frames[i] < 0 or frames[i] >= len(frames)):
+        print('Strange frame number')
+        return (False, 0, 0, 0)
+      frame_delays[frames[i]] = delays[i]
+
+    # Confirm
+    for fd in frame_delays:
+      if(fd == False):
+        print('Strange frame_delays')
+        return (False, 0, 0, 0)
+
+    isVariableFrameRate = False
+    prev_d = False
+    for d in frame_delays:
+      if( prev_d != False):
+        if( prev_d != d):
+          isVariableFrameRate = True
           break
-      if(is_firstSeeing_delay):
-        collected_delays.append(d)
-        collected_delays_cnt.append(1)
-    
-    #print(collected_delays)
-    #print(collected_delays_cnt)
-  
-    # Constant delay
-    if( len(collected_delays) == 1 ):
-      return int(1000 / collected_delays[0])
+      prev_d = d
 
-    # un-Constant delay ()
+
+    # CFR
+    if( isVariableFrameRate == False ):
+      return (True, 0, float(1000 / frame_delays[0]), len(frame_delays))
+
+    # VFR
     else:
-      print()
-      print('WARNING')
-      print('Original frame rate is un-constant')
-      print('We will use the \'most used delay\' to calculate the frame-rate')
-      print('This may have some impact on the art frame-rate.')
-      print()
-      major = 0
-      delayToUse = 40
-      for i in range(0, len(collected_delays_cnt)):
-        if( collected_delays_cnt[i] > major):
-          major = collected_delays_cnt[i]
-          delayToUse = collected_delays[i]
-      #print('delayToUse: ' + str(delayToUse))
-      return int(1000 / delayToUse)
-  except:
-    return False
+      print('info: This Ugoira is VFR(Variable Frame rate)')
 
+      # Don't have mp4fpsmod to make VFR mp4?
+      if(not os.path.exists('mp4fpsmod')):
+        print('WARNING')
+        print(' mp4fpsmod is not installed, without this we can\'t make Ugoira as VFR.')
+        print(' Ugoira will be saved as CFR(Constant frame rate) with fps as the middle.')
+
+        # Calculate the middle
+        fcnt = len(frame_delays)
+        fsum = 0
+        for t in frame_delays:
+          fsum += t
+        return (True, 0, float(1000 / float(fsum / fcnt)), fcnt)
+
+      # mp4fpsmod is installed 
+      else:
+        return (True, 1, frame_delays, len(frame_delays))
+  except:
+    return (False, '', '', 0)
+
+
+def saveArtUgoiraMeta(dst, ugoira_meta):
+  f = open(dst,'wb')
+  f.write(ugoira_meta)
+  f.close()
 
