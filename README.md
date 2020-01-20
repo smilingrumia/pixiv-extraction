@@ -1,5 +1,3 @@
-# Writing Now...  
-  
 # pixiv-extraction
 
 Quick and lossless download automation script in python3 for Linux  
