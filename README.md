@@ -190,7 +190,7 @@ SAVE_FORMAT = 1
 In case that pixiv-extraction are working, but after logout via pixiv web page aren't working,  
 Do the Step 1 to 3, and to “logout”, clean the pixiv cookie via browser.  
   
-**Clean-up manually tmp/ in a while**  
+### Clean-up manually tmp/ in a while
 tmp/ folder is used to store ugoira temporary data, and all file inside(not tmp/ itself) can be deleted on the end of program.   
 ~~The author was scared to use folder deletion API~~ this may be fixed in future.
   
