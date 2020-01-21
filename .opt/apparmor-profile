@@ -1,0 +1,39 @@
+#
+# Example of AppArmor profile for pixiv-extraction
+# working on Ubuntu 16.04
+#
+# Here, username is USER and pixiv-extraction are placed in Downloads/
+#
+
+@{PIXIV_EXTRACTION_DIR}=/home/USER/Downloads/pixiv-extraction
+@{PIXIV_EXTRACTION_SCRIPT}=/home/USER/Downloads/pixiv-extraction/extraction.py
+
+#include <tunables/global>
+
+@{PIXIV_EXTRACTION_SCRIPT} {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+  #include <abstractions/python>
+  #include <abstractions/lightdm>
+
+
+  # Pixiv-extraction directory
+  @{PIXIV_EXTRACTION_DIR}/ r,
+  @{PIXIV_EXTRACTION_DIR}/** r,
+  @{PIXIV_EXTRACTION_DIR}/save_images/** rw,
+  @{PIXIV_EXTRACTION_DIR}/save_ugoira/** rw,
+  @{PIXIV_EXTRACTION_DIR}/tmp/** rw,
+
+  # Dependency
+  /usr/bin/7z rix,
+  /usr/bin/curl rix,
+  /usr/bin/ffmpeg rix,
+  @{PIXIV_EXTRACTION_DIR}/mp4fpsmod rix,
+
+  /bin/dash ix,
+  /usr/lib{,32,64}/** mrix,
+  /etc/ld.so.preload r,
+  /usr/bin/python3.5 ix,
+}
+
