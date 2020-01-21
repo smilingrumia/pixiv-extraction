@@ -169,7 +169,7 @@ Run:
 mpv --loop --idle=yes --force-window
 ```
 like mpv(0.30.0) should play smooth, VFR Compatible, and no “title flicking”  
-!! On Ubuntu 16.04, if mpv are installed with apt will be old(0.14.0) and fail to play as VFR!!  
+!! On Ubuntu 16.04, if mpv are installed from default repository, will be old(0.14.0) and fail to play as VFR!!  
 
 ### Image viewer
 If want to try, I suggest mirage.
