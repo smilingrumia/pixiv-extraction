@@ -1,6 +1,6 @@
 # pixiv-extraction
 
-Quick and lossless download automation script in python3 for Linux  
+Quick and lossless([detail](https://github.com/smilingrumia/pixiv-extraction/#user-content-detail-of-lossless)) download automation script in python3 for Linux  
 To download Pixiv images and Ugoira(Pixiv's animated image)  
   
 Version: v0.7.0  
@@ -43,7 +43,19 @@ make
 # move compiled binary to pixiv-extraction/
 mv ./mp4fpsmod <path>/pixiv-extraction/
 ```
-  
+
+**apparmor security enforcing(Optional)**
+```
+# Modify it, to suit your environment
+nano  pixiv-extraction/.opt/apparmor-profile
+
+sudo cp pixiv-extraction/.opt/apparmor-profile /etc/apparmor.d/pixiv-extraction
+sudo apt install apparmor-utils
+sudo aa-enforce /etc/apparmor.d/pixiv-extraction
+
+# check
+sudo aa-status | grep -z pixiv
+```
   
 ## Copy your http header to  httpHeader/
 Now, We will need your login-credential(Cookie) to get the art.  
@@ -133,20 +145,39 @@ Images: save_images/
 Ugoira: save_ugoira/  
   
 # Notes  
-**Ugoira**  
-Ugoira will be converted losslessly to mp4  
+### Detail of lossless
   
-**Player for ugoira.mp4**  
-Happy with your player?  
-If wanna try other, I suggest  mpv.  
+**Images**  
+ Original images are just downloaded.  
+  
+**Ugoira**  
+ .mp4 will be make using original Ugoira images,  
+ with NO re-encoding or such thing.  
+  And  can be reversed to original images with:  
+ ```
+ ffmpeg -i ugoira.mp4 -vcodec copy %06d.jpg
+ ```
+  
+  One more thing is that Ugoira is VFR(variable frame rate) by design.  
+  And some part of Ugoira(10-20% maybe?)  are made as VFR,  
+  pixivi-extraction can handle VFR(thanks to mp4fpsmod!)  
+  
+### Player for Ugoira
+Install the latest mpv.  
+Run:  
 ```
-sudo apt install mpv
 mpv --loop --idle=yes --force-window
 ```
-Then Drag&Drop ugoira.mp4 to player.  
-This should play smooth, and no “title flicking”   
+like mpv(0.30.0) should play smooth, VFR Compatible, and no “title flicking”  
+!! On Ubuntu 16.04, if mpv are installed with apt will be old(0.14.0) and fail to play as VFR!!  
+
+### Image viewer
+If want to try, I suggest mirage.
+```
+sudo apt install mirage
+``` 
   
-**Art filename**  
+### Art filename
 By default, the art will be saved like ```art-title_001.jpg```, and if already exist, will be ```art-title(art-id)_001.jpg```  
   
 if want to save like ```art-id_001.jpg```, change the follow:  
@@ -155,7 +186,7 @@ SAVE_FORMAT = 0
 to  
 SAVE_FORMAT = 1  
   
-**MAYBE: is better NOT  logout via pixiv web page(this may disable the cookie?)**  
+### MAYBE: is better NOT  logout via pixiv web page(this may disable the cookie?)
 In case that pixiv-extraction are working, but after logout via pixiv web page aren't working,  
 Do the Step 1 to 3, and to “logout”, clean the pixiv cookie via browser.  
   
@@ -163,7 +194,7 @@ Do the Step 1 to 3, and to “logout”, clean the pixiv cookie via browser.
 tmp/ folder is used to store ugoira temporary data, and all file inside(not tmp/ itself) can be deleted on the end of program.   
 ~~The author was scared to use folder deletion API~~ this may be fixed in future.
   
-**In future, when pixiv make change in their site**  
+### In future, when pixiv make change in their site
 This programs probably will stop to work with some error message, And have to be updated to continue to work.  
 In that case, when I detect the change, I will announce the situation here, and hopefully fix it if I can.
 
