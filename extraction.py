@@ -6,9 +6,14 @@ import os
 import sys
 import time
 import re
+import shutil
+import gzip
+import brotli
 from subprocess import Popen, call, PIPE
 from tkinter import Tk
 from shutil import copyfile
+from os import listdir
+from os.path import isfile, join
 
 # Move to script directory
 os.chdir( os.path.dirname(os.path.abspath(__file__)) )
@@ -50,7 +55,7 @@ if(len(sys.argv) > 1):
 # None Arg
 else:
   print('[Version]')
-  print('  v0.7.0')
+  print('  v0.7.1')
   print('')
   print('[Usage]')
   print('  ./exctaction.sh url1 url2 ...')

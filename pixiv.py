@@ -94,6 +94,7 @@ def pixiv_ugoiraExtraction(art_url, art_id, art_title, art_artist, art_comment, 
     print('Fail to Get Ugoira URL')
     return False
 
+
   # Frame-rate calculation
   frSum = calculateFrameRate(r)
   if(frSum[0] == False):
@@ -119,8 +120,10 @@ def pixiv_ugoiraExtraction(art_url, art_id, art_title, art_artist, art_comment, 
   r = unzipAndSave(ugoira_zip, ugoira_dir)
   if ( r == False):
     print('Fail to unzip')
+    cleanUgoiraZip(ugoira_zip)
     return False
-  os.remove(ugoira_zip)
+
+  cleanUgoiraZip(ugoira_zip)
 
   # ffmpgeg
   ext = ''
@@ -137,6 +140,7 @@ def pixiv_ugoiraExtraction(art_url, art_id, art_title, art_artist, art_comment, 
       ext = 'png'
     except:
       print('Fail: Ugoira is not jpg or png?')
+      cleanUgoiraTempFile(ugoira_dir)
       return False
 
   # Is CFR
@@ -147,11 +151,15 @@ def pixiv_ugoiraExtraction(art_url, art_id, art_title, art_artist, art_comment, 
     r = convertUgoiraToMp4(False, art_id, frSum[2], frSum[3], ext, ugoira_out)
   else:
     print('Fail: not CFR or VFR?')
+    cleanUgoiraTempFile(ugoira_dir)
     return False
 
   if ( r == False):
     print('Fail to ffmpeg')
+    cleanUgoiraTempFile(ugoira_dir)
     return False
+
+  cleanUgoiraTempFile(ugoira_dir)
 
   # Save art information
   info_file = prepareOutputFileName(SAVE_UGOIRA_DIR + 'info/', art_title, art_id, '', 'txt')

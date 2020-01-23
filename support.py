@@ -21,6 +21,18 @@ def prepareToCurl(url, header):
     return 'error'
 
 
+def decompressHtml(d):
+  # gzip
+  try:
+    return gzip.decompress(d)
+  except:
+    # brotli
+    try:
+      return brotli.decompress(d)
+    # else
+    except:
+      return d
+
 def getHttp(url, header):
   global DEVNULL
 
@@ -32,7 +44,7 @@ def getHttp(url, header):
   p.wait()
   if( p.returncode == 0):
     print('Ok: ' + url)
-    return p.communicate()[0]
+    return decompressHtml(p.communicate()[0])
   else:
     print('Failed: ' + url)
     return False
@@ -45,8 +57,10 @@ def getAndSaveHttp(url, header, save):
   #print(c)
   #time.sleep(3)
 
-  p = Popen(c, stdout=open(save,'wb'), stderr=DEVNULL)
+  f = open(save, 'wb')
+  p = Popen(c, stdout=f, stderr=DEVNULL)
   p.wait()
+  f.close()
   if( p.returncode == 0):
     print('Ok: ' + url)
     return True
@@ -305,7 +319,7 @@ def calculateFrameRate(ugoira_meta):
 
     # VFR
     else:
-      print('info: This Ugoira is VFR(Variable Frame rate)')
+      print('info: This Ugoira is VFR')
 
       # Don't have mp4fpsmod to make VFR mp4?
       if(not os.path.exists('mp4fpsmod')):
@@ -331,4 +345,33 @@ def saveArtUgoiraMeta(dst, ugoira_meta):
   f = open(dst,'wb')
   f.write(ugoira_meta)
   f.close()
+
+
+def cleanUgoiraZip(path):
+  if isfile(path):
+    os.remove(path)
+
+
+def cleanUgoiraTempFile(path):
+  for f in listdir(path):
+    if isfile(join(path, f)):
+
+      if( re.match('[0-9]{6}\.(jpg|png)', f)):
+        continue
+
+      elif( re.match('timecode.txt', f)):
+        continue
+
+      elif( re.match('ugoira\.mp4', f)):
+        continue
+
+      # Strange file contain..., we wont delete this dir
+      else:
+        return False
+
+    # Strange dir contain..., we wont delete this dir
+    else:
+      return False
+
+  shutil.rmtree(path)
 

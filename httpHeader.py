@@ -26,7 +26,7 @@ def getHttpHeader(f):
       else:
         rHeader +=  lineString + "\r\n"
         line = fp.readline()
-    return rHeader + "\r\n"
+    return rHeader
   except:
     return ''
 
