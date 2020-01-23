@@ -3,7 +3,7 @@
 Quick and lossless([detail](https://github.com/smilingrumia/pixiv-extraction/#user-content-detail-of-lossless)) download automation script in python3 for Linux  
 To download Pixiv images and Ugoira(Pixiv's animated image)  
   
-Version: v0.7.0  
+Version: v0.7.1  
 
 ###### use with respect at their server, Cheers.
  
@@ -25,10 +25,11 @@ ffmpeg:     for lossless conversion of ugoira(images) to mp4
 python3-tk: for clipboard downloading mode  
 python3:    if don’t have, install it too  
 mp4fpsmod:  to make a VFR mp4  
+python3-brotli: to decompress "Accept-Encoding: br"
   
 ```
 sudo apt update
-sudo apt install curl p7zip-full ffmpeg python3-tk
+sudo apt install curl p7zip-full ffmpeg python3-tk python3-brotli
 ```
 
 Install mp4fpsmod:  
@@ -44,7 +45,7 @@ make
 mv ./mp4fpsmod <path>/pixiv-extraction/
 ```
 
-**apparmor security enforcing(Optional)**
+**apparmor security enforcement(Optional)**
 ```
 # Modify it, to suit your environment
 nano  pixiv-extraction/.opt/apparmor-profile
@@ -86,11 +87,6 @@ Right Click -> select all -> Right Click -> copy
 Open httpHeader/pixiv_artpage with text-editor and paste your header    
 (This Header must contain Cookie)  
   
-Modify the:  
-Accept-Encoding: gzip, deflate, br  
-to  
-Accept-Encoding: deflate, br  
-  
 Save it.  
   
 **Step 2**  
@@ -98,11 +94,6 @@ Next in Network tab
 select one with: Type(json)  
 And like Step 1, copy&pasete the header to httpHeader/pixiv_artlist  
 (This Header must contain Cookie and x-user-id)  
-  
-Modify the:  
-Accept-Encoding: gzip, deflate, br  
-to  
-Accept-Encoding: deflate, br  
   
 Save it.  
   
@@ -190,22 +181,24 @@ SAVE_FORMAT = 1
 In case that pixiv-extraction are working, but after logout via pixiv web page aren't working,  
 Do the Step 1 to 3, and to “logout”, clean the pixiv cookie via browser.  
   
-### Clean-up manually tmp/ in a while
-tmp/ folder is used to store ugoira temporary data, and all file inside(not tmp/ itself) can be deleted on the end of program.   
-~~The author was scared to use folder deletion API~~ this may be fixed in future.
-  
 ### In future, when pixiv make change in their site
 This programs probably will stop to work with some error message, And have to be updated to continue to work.  
 In that case, when I detect the change, I will announce the situation here, and hopefully fix it if I can.
 
 # Change Log
 ```
+ v0.7.1
+  fix: auto clean of ugoira temporary data
+  fix: support for "Accept-Encoding: gzip, br"
+  other small fix/changes
+
  v0.7.0  
-   Some Ugoira are VFR(variable frame rate), so VFR implementation was done.  
-   bug-fix: If clipboard are empty and run as clipboard-mode, it will crash.  
-   other small fix/changes.  
+   Some Ugoira are VFR(variable frame rate), so VFR implementation was done  
+   bug-fix: If clipboard are empty and run as clipboard-mode, it will crash  
+   bug-fix: ffmpeg are skipping the first frame
+   other small fix/changes  
    
  v0.6.0  
-   Publish.  
+   Publish  
 ```
       
