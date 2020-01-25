@@ -1,6 +1,8 @@
+[README(English)](https://github.com/smilingrumia/pixiv-extraction)  
+
 # pixiv-extraction
 
-高速で無劣化/高画質（[*詳細](https://github.com/smilingrumia/pixiv-extraction/#無劣化/高画質の詳細)）の
+高速で無劣化/高画質（[*詳細](https://github.com/smilingrumia/pixiv-extraction/#無劣化・高画質の詳細)）の
 Pixiv「画像」と「うごイラ」のダウンローダーです。  
 
 対応OS: Linux  
@@ -135,7 +137,7 @@ F12(開発ツールを開く) -> ネットワーク -> F5/リフレッシュ
 うごイラ: save_ugoira/  
   
 # Notes  
-### 無劣化/高画質の詳細
+### 無劣化・高画質の詳細
   
 **画像**  
  オリジナル画像がダウンロードされます。  
