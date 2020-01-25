@@ -2,7 +2,7 @@
 
 # pixiv-extraction
 
-高速で無劣化/高画質（[*詳細](https://github.com/smilingrumia/pixiv-extraction/#無劣化・高画質の詳細)）の
+高速で無劣化/高画質（[*詳細](https://github.com/smilingrumia/pixiv-extraction/blob/master/README%28%E6%97%A5%E6%9C%AC%E8%AA%9E%29.md#Notes)）の
 Pixiv「画像」と「うごイラ」のダウンローダーです。  
 
 対応OS: Linux  
@@ -153,7 +153,7 @@ F12(開発ツールを開く) -> ネットワーク -> F5/リフレッシュ
 実際には10-20%程？のうごイラはVFRとして作成されています。  
 pixivi-extractionはVFRに対応しています！ mp4fpsmodのおかげです、感謝！  
   
-### うごイラ用のプレイヤー
+### うごイラのプレイヤー
 最新のmpvをインストールしてください。  
 一番楽なのはppaを使った方法。続いてビルドスクリプトのmvp-build（私は過去に失敗しましたが）、最後にmpv本家のビルドでしょうか。    
 その後、以下のような感じで実行:  
