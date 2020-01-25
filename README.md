@@ -1,8 +1,9 @@
+[README(日本語)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(%E6%97%A5%E6%9C%AC%E8%AA%9E).md)  
 # pixiv-extraction
 
-Quick and lossless([detail](https://github.com/smilingrumia/pixiv-extraction/#user-content-detail-of-lossless)) download automation script in python3 for Linux  
+Quick and lossless([*detail](https://github.com/smilingrumia/pixiv-extraction/#user-content-detail-of-lossless)) download automation script in python3 for Linux  
 To download Pixiv images and Ugoira(Pixiv's animated image)  
-  
+ 
 Version: v0.7.1  
 
 ###### use with respect at their server, Cheers.
@@ -151,7 +152,7 @@ Ugoira: save_ugoira/
   
   One more thing is that Ugoira is VFR(variable frame rate) by design.  
   And some part of Ugoira(10-20% maybe?)  are made as VFR,  
-  pixivi-extraction can handle VFR(thanks to mp4fpsmod!)  
+  pixivi-extraction can handle VFR, thanks to mp4fpsmod!  
   
 ### Player for Ugoira
 Install the latest mpv.  
