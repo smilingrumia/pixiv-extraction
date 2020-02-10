@@ -60,6 +60,93 @@ sudo aa-enforce /etc/apparmor.d/pixiv-extraction
 # 確認
 sudo aa-status | grep -z pixiv
 ```
+
+**イメージビューアーのインストール(スキップ可)**  
+どのビューアーでも大丈夫ですが、ここではmirageがおすすめです。  
+```
+sudo apt install mirage
+```
+
+**うごイラ用のプレイヤーのインストール**  
+最新のmpvをインストールしてください。  
+例えばmpv(0.30.0)はスムーズ、VFR、"タイトルがちらつく現象"も無く快適です。  
+!!Ubuntu16.04の場合、デフォルトのリポジトリからインストールすると古いため（0.14.0）VFRに失敗します!!  
+
+**ppaを使ってインストール（一番簡単です）**  
+```
+sudo add-apt-repository ppa:mc3man/mpv-tests
+sudo apt update
+sudo apt install mpv
+
+# check
+mpv --version
+
+# インストール後はppaを無くしても大丈夫です。
+```
+
+**mpv-buildを使ってインストール**  
+```
+# Dependency(for ubuntu 16.04)
+sudo apt install python-minimal libssl-dev libfribidi-dev libluajit-5.1-dev libx264-dev libegl1-mesa-dev \
+git autoconf libtool nasm xorg-dev libglu1-mesa-dev libvdpau* libpulse-dev \
+   libass-dev libavresample-dev libalsa-ocaml-dev liblcms2-dev libluajit-5.1-dev libjpeg-dev
+
+# Clone source
+git clone https://github.com/mpv-player/mpv-build.git
+cd mpv-build
+
+# Enabling optional ffmpeg dependencies
+echo --enable-libx264 >> ffmpeg_options
+
+./rebuild -j4
+sudo ./install
+
+# Check
+mpv –version
+```
+
+**快適な動作の為の設定**  
+nano ~/.config/mpv/mpv.conf  
+```
+# Change this for better performance on general use.
+#hwdec=vdpau
+#vo=vdpau
+
+loop
+idle=yes
+force-window
+
+# volume more than 100% brakes sound quality
+volume-max=100
+
+# don't show notifications when change volume, seek ,etc
+osd-level=0
+
+# play on original size
+video-unscaled=yes
+```
+
+nano ~/.config/mpv/input.conf  
+```
+UP		add volume 5
+DOWN	add volume -5
+n		playlist-next    
+p		playlist-prev
+```
+
+**mpvのベーシックなコマンド**
+```
+ n          next video
+ p          previous video
+ UP         volume up
+ DOWN       volume down
+ RIGHT      5sec next
+ LEFT       5sec back
+ Alt+RIGHT  right rotate
+ Alt+LEFT   left rotate
+ f          full screen
+ q          quit
+```
   
 ## httpヘッダーをhttpHeader/へコピー
 アートの取得には、あなたのPixivのログイン情報（Cookie）が必要です。  
@@ -152,22 +239,6 @@ F12(開発ツールを開く) -> ネットワーク -> F5/リフレッシュ
 もう一つ重要なのが、うごイラはVFR（可変フレームレート）形式という事です。  
 実際には10-20%程？のうごイラはVFRとして作成されています。  
 pixivi-extractionはVFRに対応しています！ mp4fpsmodのおかげです、感謝！  
-  
-### うごイラのプレイヤー
-最新のmpvをインストールしてください。  
-一番楽なのはppaを使った方法。続いてビルドスクリプトのmvp-build（私は過去に失敗しましたが）、最後にmpv本家のビルドでしょうか。    
-その後、以下のような感じで実行:  
-```
-mpv --loop --idle=yes --force-window
-```
-例えばmpv(0.30.0)ならスムーズでVFR対応、”タイトルがチラつく現象”も起こりません。  
-!! Ubuntu 16.04の場合、デフォルトのリポジトリからmpvをインストールすると古い為(0.14.0)、VFRでの再生に失敗します!!  
-
-### 画像ビューアー
-何でも良いですけど、作者のおすすめはmirageです。  
-```
-sudo apt install mirage
-``` 
   
 ### 保存先ファイル名
 デフォルトでは ```タイトル_001.jpg```か、すでに存在していれば```タイトル(アートID)_001.jpg```となります。  
