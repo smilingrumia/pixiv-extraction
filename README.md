@@ -46,7 +46,7 @@ make
 mv ./mp4fpsmod <path>/pixiv-extraction/
 ```
 
-**apparmor security enforcement(Optional)**
+**apparmor(Advanced and Optional)**
 ```
 # Modify it, to suit your environment
 nano  pixiv-extraction/.opt/apparmor-profile
@@ -57,6 +57,92 @@ sudo aa-enforce /etc/apparmor.d/pixiv-extraction
 
 # check
 sudo aa-status | grep -z pixiv
+```
+
+**Install Image viewer(Optional)**  
+Can be anything, mirage is the suggested one here.  
+```
+sudo apt install mirage
+``` 
+
+**Install Player for ugoira**  
+Install the latest mpv.  
+like mpv(0.30.0) should play smooth, VFR Compatible, and no “title flicking”  
+!! On Ubuntu 16.04, if mpv are installed from default repository, will be old(0.14.0) and fail to play as VFR!!  
+
+***via ppa(Easiest way)***
+```
+sudo add-apt-repository ppa:mc3man/mpv-tests
+sudo apt update
+sudo apt install mpv
+
+# check
+mpv --version
+
+# Optional: you can remove the ppa once mpv are installed.
+```
+
+***via mpv-build***  
+```
+# Dependency(for ubuntu 16.04)
+sudo apt install python-minimal libssl-dev libfribidi-dev libluajit-5.1-dev libx264-dev libegl1-mesa-dev \
+git autoconf libtool nasm xorg-dev libglu1-mesa-dev libvdpau* libpulse-dev \
+   libass-dev libavresample-dev libalsa-ocaml-dev liblcms2-dev libluajit-5.1-dev libjpeg-dev
+
+# Clone source
+git clone https://github.com/mpv-player/mpv-build.git
+cd mpv-build
+
+# Enabling optional ffmpeg dependencies
+echo --enable-libx264 >> ffmpeg_options
+
+./rebuild -j4
+sudo ./install
+
+# Check
+mpv –version
+```
+
+**Configure mpv to be confortable**  
+nano ~/.config/mpv/mpv.conf  
+```
+# Change this for better performance on general use.
+#hwdec=vdpau
+#vo=vdpau
+
+loop
+idle=yes
+force-window
+
+# volume more than 100% brakes sound quality
+volume-max=100
+
+# don't show notifications when change volume, seek ,etc
+osd-level=0
+
+# play on original size
+video-unscaled=yes
+```
+nano ~/.config/mpv/input.conf  
+```
+UP		add volume 5
+DOWN	add volume -5
+n		playlist-next    
+p		playlist-prev
+```
+
+**mpv basic commands**  
+```
+ n          next video
+ p          previous video
+ UP         volume up
+ DOWN       volume down
+ RIGHT      5sec next
+ LEFT       5sec back
+ Alt+RIGHT  right rotate
+ Alt+LEFT   left rotate
+ f          full screen
+ q          quit
 ```
   
 ## Copy your http header to  httpHeader/
@@ -154,20 +240,9 @@ Ugoira: save_ugoira/
   And some part of Ugoira(10-20% maybe?)  are made as VFR,  
   pixivi-extraction can handle VFR, thanks to mp4fpsmod!  
   
-### Player for Ugoira
-Install the latest mpv.  
-Run:  
-```
-mpv --loop --idle=yes --force-window
-```
-like mpv(0.30.0) should play smooth, VFR Compatible, and no “title flicking”  
-!! On Ubuntu 16.04, if mpv are installed from default repository, will be old(0.14.0) and fail to play as VFR!!  
 
-### Image viewer
-If want to try, I suggest mirage.
-```
-sudo apt install mirage
-``` 
+
+
   
 ### Art filename
 By default, the art will be saved like ```art-title_001.jpg```, and if already exist, will be ```art-title(art-id)_001.jpg```  
