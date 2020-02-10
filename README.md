@@ -36,6 +36,9 @@ sudo apt install curl p7zip-full ffmpeg python3-tk python3-brotli
 Install mp4fpsmod:  
 Open [mp4fpsmod github](https://github.com/nu774/mp4fpsmod) -> Release -> DL the latest(here will be 0.26)
 ```
+# some deps that need
+sudo apt install autoconf libtool
+
 tar xf mp4fpsmod-0.26.tar.gz
 cd mp4fpsmod-0.26
 ./bootstrap.sh
