@@ -38,6 +38,9 @@ sudo apt install curl p7zip-full ffmpeg python3-tk python3-brotli
 mp4fpsmodのインストール:  
 [mp4fpsmod github](https://github.com/nu774/mp4fpsmod)を開く -> Release -> 最新をDL(ここでは0.26)
 ```
+#  依存性
+sudo apt install autoconf libtool
+
 tar xf mp4fpsmod-0.26.tar.gz
 cd mp4fpsmod-0.26
 ./bootstrap.sh
@@ -195,7 +198,14 @@ httpHeader/pixiv_artpageをテキストエディタで開き、コピーした�
 F12(開発ツールを開く) -> ネットワーク -> F5/リフレッシュ 
 「ネットワーク」タブで右を選択: ドメイン(```i.pixiv.net```) ファイル(12345678_p0.png)  
 ステップ１のように、ヘッダーをhttpHeader/pixiv_artにコピー＆ペース  
-'If-Modified-Since'という行があれば、その行だけ削除  
+
+以下の行があれば、その行を削除して下さい。
+```
+If-Modified-Since: <something>
+Range: <something>
+If-Range: <something>
+``` 
+
 (このヘッダにはCookieもx-user-idも**含まれません**)  
   
 保存。  
