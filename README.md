@@ -197,7 +197,14 @@ Address bar will look like: ```https://i.pximg.net/img-original/img/2016/01/02/0
 F12(open devtool) -> Network tab -> F5/Refresh the Pixiv page  
 On Network tab, select: Domain(```i.pixiv.net```) File(12345678_p0.png)  
 and copy&paste the header to httpHeader/pixiv_art  
-if contain 'If-Modified-Since' exclude that line.  
+
+if contain follow, EXCLUDE THAT LINE!
+```
+If-Modified-Since: <something>
+Range: <something>
+If-Range: <something>
+```
+
 (This Header DON’T contain Cookie or x-user-id)  
   
 Save it.  
