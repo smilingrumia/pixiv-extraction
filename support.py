@@ -35,6 +35,7 @@ def decompressHtml(d):
 
 def getHttp(url, header):
   global DEVNULL
+  global VERBOUSE
 
   c = prepareToCurl(url, header)
   #print(c)
@@ -43,7 +44,8 @@ def getHttp(url, header):
   p = Popen(c, stdout=PIPE, stderr=DEVNULL)
   p.wait()
   if( p.returncode == 0):
-    print('Ok: ' + url)
+    if(VERBOUSE == 1):
+      print('Get: ' + url)
     return decompressHtml(p.communicate()[0])
   else:
     print('Failed: ' + url)
@@ -52,6 +54,7 @@ def getHttp(url, header):
 
 def getAndSaveHttp(url, header, save):
   global DEVNULL
+  global VERBOUSE
 
   c = prepareToCurl(url, header)
   #print(c)
@@ -62,7 +65,8 @@ def getAndSaveHttp(url, header, save):
   p.wait()
   f.close()
   if( p.returncode == 0):
-    print('Ok: ' + url)
+    if(VERBOUSE == 1):
+      print('Get: ' + url)
     return True
   else:
     print('Failed: ' + url)
@@ -159,9 +163,9 @@ def getUrlsFromClipboard():
   except:
     print()
   
-  print('---------- The follow will be download ------------')
-  for url in urls[1:]:
-    print(url)
+  #print('---------- The follow will be download ------------')
+  #for url in urls[1:]:
+  #  print(url)
   
   print('\nIs Ok?(y/n)')
   if( input() == 'y'):
@@ -169,7 +173,7 @@ def getUrlsFromClipboard():
   else:
     return []
 
-
+'''
 def saveArtInformation(info_file, art_url, img_length, art_title, art_artist, art_comment):
   def printToFile(s, f):
     print(s, file=f)
@@ -196,6 +200,7 @@ def saveArtInformation(info_file, art_url, img_length, art_title, art_artist, ar
   printToFile('', f)
   printToFile('', f)
   f.close()
+'''
 
 
 def excludeCharacterFromArtInfo(info):
@@ -250,6 +255,8 @@ def prepareOutputFileName(output_dir, art_title, art_id, numTag, ext):
     frame-length int
 '''
 def calculateFrameRate(ugoira_meta):
+  global VERBOUSE
+
   try:
     frames = []
     delays = []
@@ -319,7 +326,8 @@ def calculateFrameRate(ugoira_meta):
 
     # VFR
     else:
-      print('info: This Ugoira is VFR')
+      if(VERBOUSE == 1):
+        print('info: This Ugoira is VFR')
 
       # Don't have mp4fpsmod to make VFR mp4?
       if(not os.path.exists('mp4fpsmod')):

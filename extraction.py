@@ -22,6 +22,7 @@ SAVE_IMAGES_DIR = 'save_images/'
 SAVE_UGOIRA_DIR = 'save_ugoira/'
 TEMP_DIR = 'tmp/'
 DEVNULL = open(os.devnull, 'w')
+VERBOUSE = 0
 
 '''
  Save format
@@ -55,7 +56,7 @@ if(len(sys.argv) > 1):
 # None Arg
 else:
   print('[Version]')
-  print('  v0.7.1')
+  print('  v0.7.2')
   print('')
   print('[Usage]')
   print('  ./exctaction.sh url1 url2 ...')
@@ -67,13 +68,14 @@ else:
 # DL loop
 cnt = 1
 for url in urls:
-  print( str(cnt) + '/' + str(len(urls)))
-  cnt += 1
-  if( pixiv_extraction(url) == False):
+  if(VERBOUSE == 1):
+    print( str(cnt) + '/' + str(len(urls)))
+  if( pixiv_extraction(url, str(cnt), str(len(urls))) == False):
     print('Failed: ' + url)
     sys.exit(1)
+  cnt += 1
 
 if( cnt > 1):
-  print('Completed!')
+  print('Complet!')
   sys.exit(0)
 

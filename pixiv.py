@@ -4,10 +4,11 @@
 
 
 # for Images DL
-def pixiv_imagesExtraction(art_url, art_id, art_title, art_artist, art_comment, img_original_sample):
+def pixiv_imagesExtraction(art_url, art_id, art_title, art_artist, art_comment, img_original_sample, art_cnt, art_total):
 
   global SAVE_IMAGES_DIR
   global SAVE_FORMAT
+  global VERBOUSE
 
   # Extract img list
   artlist_url = 'https://www.pixiv.net/ajax/illust/' + art_id +'/pages'
@@ -20,11 +21,15 @@ def pixiv_imagesExtraction(art_url, art_id, art_title, art_artist, art_comment, 
   if ( img_length <= 0 or img_length >= 500 ):
     print('img_length is strange')
     return False
-  print(str(img_length)+' images')
+  if(VERBOUSE == 1):
+    print(str(img_length)+' images')
   
   # Image extraction
   for i in range(0,img_length) :
     try:
+      if(VERBOUSE != 1):
+        print(art_cnt + '/' + art_total + ': ' + str(i+1) +'/' + str(img_length) , end = "\r")
+
       exp = re.search('\.(jpg|jpeg|png|gif)$', img_original_sample).group(1)
       first = img_original_sample.find('_p')
       img_url = img_original_sample[0:first+2] + str(i) + '.' + exp
@@ -49,8 +54,8 @@ def pixiv_imagesExtraction(art_url, art_id, art_title, art_artist, art_comment, 
       return False
   
   # Save art information
-  info_file = prepareOutputFileName(SAVE_IMAGES_DIR + 'info/', art_title, art_id, '', 'txt')
-  saveArtInformation(info_file, art_url, img_length, art_title, art_artist, art_comment)
+  #info_file = prepareOutputFileName(SAVE_IMAGES_DIR + 'info/', art_title, art_id, '', 'txt')
+  #saveArtInformation(info_file, art_url, img_length, art_title, art_artist, art_comment)
 
   print('Ok: ' + art_title)
   return True
@@ -58,21 +63,25 @@ def pixiv_imagesExtraction(art_url, art_id, art_title, art_artist, art_comment, 
 
 
 # for Ugoira DL
-def pixiv_ugoiraExtraction(art_url, art_id, art_title, art_artist, art_comment, img_original_sample):
+def pixiv_ugoiraExtraction(art_url, art_id, art_title, art_artist, art_comment, img_original_sample, art_cnt, art_total):
 
   global SAVE_UGOIRA_DIR
   global TEMP_DIR
+  global VERBOUSE
 
   # Extract ugoira meta-data
   try:
+    if(VERBOUSE != 1):
+      print(art_cnt + '/' + art_total + ': 1/1', end = "\r")
+
     artlist_url = 'https://www.pixiv.net/ajax/illust/'+ art_id + '/ugoira_meta'
     r = getHttp(artlist_url, prepareHttpHeaderWithReferer(getHttpHeader_pixivArtMeta(), art_url))
     if(r == False):
       return False
 
     # Save ugoira_meta
-    ugoira_meta_file = prepareOutputFileName(SAVE_UGOIRA_DIR + 'info/', art_title, art_id, '', 'ugoira_meta')
-    saveArtUgoiraMeta(ugoira_meta_file, r)
+    #ugoira_meta_file = prepareOutputFileName(SAVE_UGOIRA_DIR + 'info/', art_title, art_id, '', 'ugoira_meta')
+    #saveArtUgoiraMeta(ugoira_meta_file, r)
 
   except:
     print('Fail to Get ugoira_meta')
@@ -162,8 +171,8 @@ def pixiv_ugoiraExtraction(art_url, art_id, art_title, art_artist, art_comment, 
   cleanUgoiraTempFile(ugoira_dir)
 
   # Save art information
-  info_file = prepareOutputFileName(SAVE_UGOIRA_DIR + 'info/', art_title, art_id, '', 'txt')
-  saveArtInformation(info_file, art_url, 1, art_title, art_artist, art_comment)
+  #info_file = prepareOutputFileName(SAVE_UGOIRA_DIR + 'info/', art_title, art_id, '', 'txt')
+  #saveArtInformation(info_file, art_url, 1, art_title, art_artist, art_comment)
 
   print('Ok: ' + art_title + '.mp4')
   return True
@@ -171,12 +180,16 @@ def pixiv_ugoiraExtraction(art_url, art_id, art_title, art_artist, art_comment, 
 
 
 # Pixiv Main
-def pixiv_extraction(art_url):
+def pixiv_extraction(art_url, art_cnt, art_total):
+  global VERBOUSE
 
   # Validate Pixiv URL
   if(not re.search('^https\:\/\/www.pixiv.net([a-z,\/]{1,8})artworks/([0-9]{1,10})$',art_url)):
     print('Not pixiv\'s art url')
     return False
+
+  if(VERBOUSE != 1):
+    print(art_cnt + '/' + art_total + ': ' , end = "\r")
 
   # Extract art_id
   try:
@@ -235,10 +248,10 @@ def pixiv_extraction(art_url):
 
     # Ugoira
     if( ii != -1):
-      return pixiv_ugoiraExtraction(art_url, art_id, art_title, art_artist, art_comment, img_original_sample)
+      return pixiv_ugoiraExtraction(art_url, art_id, art_title, art_artist, art_comment, img_original_sample,  art_cnt, art_total)
     # Images
     else:
-      return pixiv_imagesExtraction(art_url, art_id, art_title, art_artist, art_comment, img_original_sample)
+      return pixiv_imagesExtraction(art_url, art_id, art_title, art_artist, art_comment, img_original_sample , art_cnt, art_total)
   except:
     print('Images/Ugoira failed')
     return False
