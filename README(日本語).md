@@ -6,7 +6,7 @@
 Pixiv「画像」と「うごイラ」のダウンローダーです。  
 
 対応OS: Linux  
-Version: v0.7.1  
+Version: v0.7.2  
 
 ###### サーバーをリスペクトしつつ使いましょう, Cheers.
  
@@ -268,6 +268,10 @@ pixiv-extractionが正常動作していても、ログアウト後に動作し�
 
 # Change Log
 ```
+ v0.7.2
+  remove: saving art info to save_images/info and save_ugoira/info
+  modify: output message
+  
  v0.7.1
   fix: auto clean of ugoira temporary data
   fix: support for "Accept-Encoding: gzip, br"
