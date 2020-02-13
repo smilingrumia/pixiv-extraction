@@ -4,7 +4,7 @@
 Quick and lossless([*detail](https://github.com/smilingrumia/pixiv-extraction/#user-content-detail-of-lossless)) download automation script in python3 for Linux  
 To download Pixiv images and Ugoira(Pixiv's animated image)  
  
-Version: v0.7.1  
+Version: v0.7.2  
 
 ###### use with respect at their server, Cheers.
  
@@ -273,6 +273,10 @@ In that case, when I detect the change, I will announce the situation here, and 
 
 # Change Log
 ```
+ v0.7.2
+  remove: saving art info to save_images/info and save_ugoira/info
+  modify: output message
+  
  v0.7.1
   fix: auto clean of ugoira temporary data
   fix: support for "Accept-Encoding: gzip, br"
