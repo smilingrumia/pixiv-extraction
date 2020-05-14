@@ -6,7 +6,7 @@
 Quick and lossless([*detail](https://github.com/smilingrumia/pixiv-extraction/#user-content-detail-of-lossless)) download automation script in python3  
 To download Pixiv images and Ugoira(Pixiv's animated image)  
 
-OS: Linux,Windows10
+OS: Linux,Windows10  
 Version: v0.7.3  
 
 ###### use with respect at their server, Cheers.
