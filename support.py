@@ -42,11 +42,11 @@ def getHttp(url, header):
   #time.sleep(3)
 
   p = Popen(c, stdout=PIPE, stderr=DEVNULL)
-  p.wait()
-  if( p.returncode == 0):
+  outs, errs = p.communicate()
+  if( errs == None ):
     if(VERBOUSE == 1):
       print('Get: ' + url)
-    return decompressHtml(p.communicate()[0])
+    return decompressHtml(outs)
   else:
     print('Failed: ' + url)
     return False
@@ -330,7 +330,8 @@ def calculateFrameRate(ugoira_meta):
         print('info: This Ugoira is VFR')
 
       # Don't have mp4fpsmod to make VFR mp4?
-      if(not os.path.exists('mp4fpsmod')):
+      if (not os.path.exists('mp4fpsmod')) and (not os.path.exists('mp4fpsmod.exe')):
+        print()
         print('WARNING')
         print(' mp4fpsmod is not installed, without this we can\'t make Ugoira as VFR.')
         print(' Ugoira will be saved as CFR(Constant frame rate) with fps as the middle.')
