@@ -5,14 +5,14 @@
 高速で無劣化/高画質（[*詳細](https://github.com/smilingrumia/pixiv-extraction/blob/master/README%28%E6%97%A5%E6%9C%AC%E8%AA%9E%29.md#Notes)）の
 Pixiv「画像」と「うごイラ」のダウンローダーです。  
 
-対応OS: Linux,Windows10  
+OS: Linux,Windows10  
 Version: v0.7.3  
 
 ###### サーバーをリスペクトしつつ使いましょう, Cheers.
  
 # インストール
   
-以下の手順はUbuntu 16.04で確認  
+以下の手順はLinux(Ubuntu 16.04)で確認  
 Windows10はこちらを参考に:
 [README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)  
 
@@ -267,7 +267,7 @@ SAVE_FORMAT = 1
 pixiv-extractionが正常動作していても、ログアウト後に動作しなくなった場合はこれが疑わしいです。  
 その場合httpヘッダーをもう一度コピーしなおして、ブラウザ側でクッキーを削除すれば”ログアウト”が出来ます。  
 
-### pixivのウェブページの仕様が変更になった時
+### 将来pixivのウェブページの仕様が変更になった時
 おそらく何らかのエラーメッセージを表示してダウンロードは失敗します。  
 その時は状況をここでアナウンスし、可能であればfixする予定です。  
 
