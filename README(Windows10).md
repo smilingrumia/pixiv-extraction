@@ -44,11 +44,12 @@
 
 **mp4fpsmod**
   1.Download mp4fpsmod_0.26.zip: https://sites.google.com/site/qaacpage/cabinet  
-  2.Open mp4fpsmod_0.26  
-  3.Select all files, and copy inside of pixiv-extraction  
+  2.Unzip
+  3.Open mp4fpsmod_0.26  
+  4.Select all files, and copy inside of pixiv-extraction  
 
 
-**mpv**
+**mpv**  
   Oficial site: https://mpv.io/installation/  
 
   1.Download mpv-x86_64-20200510-git-4e94b21.7z: https://sourceforge.net/projects/mpv-player-windows/files/  
@@ -58,14 +59,14 @@
 
   5.Open notepad and copy the follow  
 ```
-UP		add volume 5
-DOWN	  add volume -5
-n		playlist-next
-p		playlist-prev
+UP       add volume 5
+DOWN     add volume -5
+n        playlist-next
+p        playlist-prev
 ```
 
   6.Save as  
-    file path: C:\Users\<YOUR USERNAME>\AppData\Roaming\mpv\  
+    file path: C:\Users\<YOUR USERNAME>\AppData\Roaming\mpv  
     file name: input.conf  
     file type: all file  
 
@@ -92,15 +93,17 @@ video-unscaled=yes
 #no-border
 ```
   8.Save as  
-    file path: C:\Users\<YOUR USERNAME>\AppData\Roaming\mpv\  
+    file path: C:\Users\<YOUR USERNAME>\AppData\Roaming\mpv  
     file name: mpv.conf  
     file type: all file  
 
-**Next thing to do**
+**Next thing to do**  
 Go back to README.md and follow "Copy your http header to httpHeader/"
 
 to run, do like this 
 ```
+ # Open cmd
+ 
  # note: 'right click' on cmd, can paste(like Ctrl + V)
  cd C:\Users\<USER NAME>\Desktop\pixiv-extraction\
 
