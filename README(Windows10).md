@@ -7,7 +7,7 @@
   1.Download the installer: https://www.python.org  
   2.Start  
   3.Customize installation  
-     Confirm that follow are checked(if by default all are selected, it's OK)  
+     Confirm that follow are selected(if by default all are selected, it's OK)  
      pip  
      td/tk and IDLE  
   4.Next  
@@ -42,9 +42,9 @@
   5.Open ffmpeg-4.2.2-win64-static\bin  
   6.Select all files, and copy inside of pixiv-extraction  
 
-**mp4fpsmod**
+**mp4fpsmod**  
   1.Download mp4fpsmod_0.26.zip: https://sites.google.com/site/qaacpage/cabinet  
-  2.Unzip
+  2.Unzip  
   3.Open mp4fpsmod_0.26  
   4.Select all files, and copy inside of pixiv-extraction  
 
