@@ -1,16 +1,21 @@
+# (Updating Please wait)  
+
 [README(日本語)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(%E6%97%A5%E6%9C%AC%E8%AA%9E).md)  
 # pixiv-extraction
 
-Quick and lossless([*detail](https://github.com/smilingrumia/pixiv-extraction/#user-content-detail-of-lossless)) download automation script in python3 for Linux  
+Quick and lossless([*detail](https://github.com/smilingrumia/pixiv-extraction/#user-content-detail-of-lossless)) download automation script in python3  
 To download Pixiv images and Ugoira(Pixiv's animated image)  
- 
-Version: v0.7.2  
+
+OS: Linux,Windows10
+Version: v0.7.3  
 
 ###### use with respect at their server, Cheers.
  
 # Instalation  
   
-(The follow are tested on Ubuntu 16.04)  
+The follow are tested on Linux(Ubuntu 16.04)  
+For Windows10 see :
+[README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)  
 
 **Clone the source**
 
@@ -125,13 +130,16 @@ osd-level=0
 
 # play on original size
 video-unscaled=yes
+
+# this may help on "viewing big ugoira -> press 'n' to go to next, but mpv still fixed big"
+#no-border
 ```
 nano ~/.config/mpv/input.conf  
 ```
-UP		add volume 5
-DOWN	add volume -5
-n		playlist-next    
-p		playlist-prev
+UP     add volume 5
+DOWN   add volume -5
+n      playlist-next    
+p      playlist-prev
 ```
 
 **mpv basic commands**  
@@ -273,6 +281,9 @@ In that case, when I detect the change, I will announce the situation here, and 
 
 # Change Log
 ```
+ v0.7.3
+  Windows10 support
+  
  v0.7.2
   remove: saving art info to save_images/info and save_ugoira/info
   modify: output message
