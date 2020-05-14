@@ -5,14 +5,16 @@
 高速で無劣化/高画質（[*詳細](https://github.com/smilingrumia/pixiv-extraction/blob/master/README%28%E6%97%A5%E6%9C%AC%E8%AA%9E%29.md#Notes)）の
 Pixiv「画像」と「うごイラ」のダウンローダーです。  
 
-対応OS: Linux  
-Version: v0.7.2  
+対応OS: Linux,Windows10  
+Version: v0.7.3  
 
 ###### サーバーをリスペクトしつつ使いましょう, Cheers.
  
 # インストール
   
-(以下の手順はUbuntu 16.04で確認)
+以下の手順はUbuntu 16.04で確認  
+Windows10はこちらを参考に:
+[README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)  
 
 **本ソースのクローン**
 
@@ -127,6 +129,9 @@ osd-level=0
 
 # play on original size
 video-unscaled=yes
+
+# this may help on "viewing big ugoira -> press 'n' to go to next, but mpv still fixed big"
+#no-border
 ```
 
 nano ~/.config/mpv/input.conf  
@@ -268,6 +273,9 @@ pixiv-extractionが正常動作していても、ログアウト後に動作し�
 
 # Change Log
 ```
+ v0.7.3
+  Windows10 support
+  
  v0.7.2
   remove: saving art info to save_images/info and save_ugoira/info
   modify: output message
