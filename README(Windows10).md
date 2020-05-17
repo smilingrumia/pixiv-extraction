@@ -99,7 +99,7 @@ video-unscaled=yes
 
 
 **How to display video thumbnail**  
-Program to make mp4 thumbnail may needed.  
+Program to make mp4 thumbnail may need.  
 have various, here we will try Media Preview.  
 
 Media Preview  
