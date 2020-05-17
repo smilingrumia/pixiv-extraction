@@ -97,6 +97,21 @@ video-unscaled=yes
     file name: mpv.conf  
     file type: all file  
 
+
+**How to display video thumbnail**  
+Program to make mp4 thumbnail may needed.  
+have various, here we will try Media Preview.  
+
+Media Preview  
+Official: http://www.babelsoft.net/products/mediapreview.htm  
+Third Party(https): https://www.free-codecs.com/download/media_preview.htm  
+
+1.Download  
+2.Install  
+3.Media Preview configuration will popup(if not open)  
+4.Video Formats -> check .mp4 -> Apply -> Exit  
+
+
 **Next thing to do**  
 Go back to README.md and follow "Copy your http header to httpHeader/"
 
