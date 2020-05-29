@@ -279,6 +279,11 @@ In that case, when I detect the change, I will announce the situation here, and 
 
 # Change Log
 ```
+ v0.7.4
+  improve clipboard detection speed
+  fix some art title
+  other small improve
+  
  v0.7.3
   Windows10 support
   
