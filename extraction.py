@@ -56,7 +56,7 @@ if(len(sys.argv) > 1):
 # None Arg
 else:
   print('[Version]')
-  print('  v0.7.3')
+  print('  v0.7.4')
   print('')
   print('[Usage]')
   print('  ./exctaction.sh url1 url2 ...')
@@ -65,7 +65,7 @@ else:
   sys.exit(0)
 
 
-# DL loop
+# Art DL loop
 cnt = 1
 for url in urls:
   if(VERBOUSE == 1):

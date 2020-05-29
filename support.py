@@ -51,6 +51,8 @@ def getHttp(url, header):
     print('Failed: ' + url)
     return False
 
+def confirmFileExist(fname):
+    return os.path.isfile(fname)
 
 def getAndSaveHttp(url, header, save):
   global DEVNULL
@@ -62,16 +64,23 @@ def getAndSaveHttp(url, header, save):
 
   f = open(save, 'wb')
   p = Popen(c, stdout=f, stderr=DEVNULL)
-  p.wait()
+  outs, errs = p.communicate()
   f.close()
-  if( p.returncode == 0):
+  if( errs == None ):
     if(VERBOUSE == 1):
       print('Get: ' + url)
+
+    # verbouse confirmation
+    if(confirmFileExist(save) == False):
+      print('Failed: ' + url)
+      print('Failed to create file: ' + save)
+      return False
+
     return True
+
   else:
     print('Failed: ' + url)
     return False
-
 
 def unzipAndSave(src, dst):
   global DEVNULL
@@ -159,7 +168,7 @@ def getUrlsFromClipboard():
           print(s)
       except:
         None
-      time.sleep(0.3)
+      time.sleep(0.1)
   except:
     print()
   
@@ -204,11 +213,27 @@ def saveArtInformation(info_file, art_url, img_length, art_title, art_artist, ar
 
 
 def excludeCharacterFromArtInfo(info):
-  info = info.replace('&amp','&')
-  info = info.replace(';','')
-  info = info.replace('\'','')
+  # HTML
+  info = info.replace('&amp;','&')
+  info = info.replace('\\u0027','\'')
+  info = info.replace('\\"','"')
+
+  # Linux
   info = info.replace('/','')
-  info = info.replace('.','')
+  import platform
+  if( platform.system() == 'Linux'):
+    return info
+
+  # Windows
+  info = info.replace('<','')
+  info = info.replace('>','')
+  info = info.replace(':','')
+  info = info.replace('\"','')
+  info = info.replace('/','')
+  info = info.replace('\\','')
+  info = info.replace('|','')
+  info = info.replace('?','')
+  info = info.replace('*','')
   return info
 
 
