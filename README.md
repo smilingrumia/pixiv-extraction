@@ -5,7 +5,7 @@ Quick and lossless([*detail](https://github.com/smilingrumia/pixiv-extraction/#u
 To download Pixiv images and Ugoira(Pixiv's animated image)  
 
 OS: Linux,Windows10  
-Version: v0.7.3  
+Version: v0.7.4  
 
 ###### use with respect at their server, Cheers.
  
