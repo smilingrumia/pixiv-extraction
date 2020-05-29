@@ -6,7 +6,7 @@
 Pixiv「画像」と「うごイラ」のダウンローダーです。  
 
 OS: Linux,Windows10  
-Version: v0.7.3  
+Version: v0.7.4  
 
 ###### サーバーをリスペクトしつつ使いましょう, Cheers.
  
@@ -273,6 +273,11 @@ pixiv-extractionが正常動作していても、ログアウト後に動作し�
 
 # Change Log
 ```
+ v0.7.4
+  improve clipboard detection speed
+  fix some art title
+  other small improve
+  
  v0.7.3
   Windows10 support
   
