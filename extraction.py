@@ -56,7 +56,7 @@ if(len(sys.argv) > 1):
 # None Arg
 else:
   print('[Version]')
-  print('  v0.7.4')
+  print('  v0.7.5')
   print('')
   print('[Usage]')
   print('  ./exctaction.sh url1 url2 ...')

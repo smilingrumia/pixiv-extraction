@@ -215,6 +215,8 @@ def saveArtInformation(info_file, art_url, img_length, art_title, art_artist, ar
 def excludeCharacterFromArtInfo(info):
   # HTML
   info = info.replace('&amp;','&')
+  info = info.replace('&lt;','<')
+  info = info.replace('&gt;','>')
   info = info.replace('\\u0027','\'')
   info = info.replace('\\"','"')
 
