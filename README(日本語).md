@@ -6,7 +6,7 @@
 Pixiv「画像」と「うごイラ」のダウンローダーです。  
 
 OS: Linux,Windows10  
-Version: v0.7.4  
+Version: v0.7.5  
 
 ###### サーバーをリスペクトしつつ使いましょう, Cheers.
  
@@ -144,8 +144,8 @@ p		playlist-prev
 
 **mpvのベーシックなコマンド**
 ```
- n          next video
- p          previous video
+ n          next video      (複数のうごイラをmpvプレイヤーにドラッグ＆ドロップした時に有効です)
+ p          previous video  (複数のうごイラをmpvプレイヤーにドラッグ＆ドロップした時に有効です)
  UP         volume up
  DOWN       volume down
  RIGHT      5sec next
@@ -255,6 +255,15 @@ If-Range: <something>
 実際には10-20%程？のうごイラはVFRとして作成されています。  
 pixivi-extractionはVFRに対応しています！ mp4fpsmodのおかげです、感謝！  
   
+### スマートフォンでうごイラを再生したい場合
+mpvプレイヤーをインストールし  
+mpvを起動 -> Settings -> Advanced -> Edit mpv.conf -> loopと入力する -> SAVE  
+うごイラをスマートフォンにコピーして再生  
+
+### 作者の全ての作品をダウンロードしたいけど、いちいち全部クリックするのが面倒？
+ 手抜きですが.otp/pageToUrl.jsを参考に解決出来るかもしれません。  
+（windowsだと'cat dllist | xargs ./extraction.py'をどうやるかが分かりませんが）  
+
 ### 保存先ファイル名
 デフォルトでは ```タイトル_001.jpg```か、すでに存在していれば```タイトル(アートID)_001.jpg```となります。  
 ```アートID_001.jpg```のように保存したければ以下を編集してください。  
@@ -273,6 +282,10 @@ pixiv-extractionが正常動作していても、ログアウト後に動作し�
 
 # Change Log
 ```
+ v0.7.5
+  fix some art title(< and >)
+  lazy solution to easly download all arts of artist
+  
  v0.7.4
   improve clipboard detection speed
   fix some art title
