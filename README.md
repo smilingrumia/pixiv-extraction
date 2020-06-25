@@ -5,7 +5,7 @@ Quick and lossless([*detail](https://github.com/smilingrumia/pixiv-extraction/#u
 To download Pixiv images and Ugoira(Pixiv's animated image)  
 
 OS: Linux,Windows10  
-Version: v0.7.4  
+Version: v0.7.5  
 
 ###### use with respect at their server, Cheers.
  
@@ -142,8 +142,8 @@ p      playlist-prev
 
 **mpv basic commands**  
 ```
- n          next video
- p          previous video
+ n          next video     (this works when Drug&Drop multiple .mp4 on mpv)
+ p          previous video (this works when Drug&Drop multiple .mp4 on mpv)
  UP         volume up
  DOWN       volume down
  RIGHT      5sec next
@@ -256,9 +256,14 @@ Ugoira: save_ugoira/
   And some part of Ugoira(10-20% maybe?)  are made as VFR,  
   pixivi-extraction can handle VFR, thanks to mp4fpsmod!  
   
+### Play ugoira on smartphone?
+  Install mpv player  
+  Open mpv -> Settings -> Advanced ->  Edit mpv.conf -> type "loop" -> SAVE  
+  copy ugoira to smartphone and play.  
 
-
-
+### Want to DL all art of the artist, but lazy to click all of them?
+  A lazy solution was done, see .otp/pageToUrl.js 
+  (not sure how to do ‘cat dllist | xargs ./extraction’ on windows) 
   
 ### Art filename
 By default, the art will be saved like ```art-title_001.jpg```, and if already exist, will be ```art-title(art-id)_001.jpg```  
@@ -279,6 +284,10 @@ In that case, when I detect the change, I will announce the situation here, and 
 
 # Change Log
 ```
+ v0.7.5
+  fix some art title(< and >)
+  lazy solution to easly download all arts of artist
+  
  v0.7.4
   improve clipboard detection speed
   fix some art title
