@@ -258,12 +258,12 @@ Ugoira: save_ugoira/
   
 ### Play ugoira on smartphone?
   Install mpv player  
-  Open mpv -> Settings -> Advanced ->  Edit mpv.conf -> type "loop" -> SAVE  
+  Open mpv -> Settings -> Advanced ->  Edit mpv.conf -> type loop -> SAVE  
   copy ugoira to smartphone and play.  
 
 ### Want to DL all art of the artist, but lazy to click all of them?
   A lazy solution was done, see .otp/pageToUrl.js 
-  (not sure how to do ‘cat dllist | xargs ./extraction’ on windows) 
+  (not sure how to do ‘cat dllist | xargs ./extraction.py’ on windows) 
   
 ### Art filename
 By default, the art will be saved like ```art-title_001.jpg```, and if already exist, will be ```art-title(art-id)_001.jpg```  
