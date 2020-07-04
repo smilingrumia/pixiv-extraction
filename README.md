@@ -8,6 +8,25 @@ OS: Linux,Windows10
 Version: v0.7.5  
 
 ###### use with respect at their server, Cheers.
+
+
+Abstract
+===========================
+- [Install](#Instalation)
+	- [pixiv-extraction](#install-pixiv-extraction)
+	- [mpv](#install-mpv)
+	- [Optionals](#install-optionals)
+- [Run](#run)
+- [Notes](#notes)
+	- Detail of lossless
+	- Play ugoira on smartphone?
+	- Want to DL all art of the artist, but lazy to click all of them?
+	- Art filename format
+	- MAYBE: is better NOT logout via pixiv web page(this may disable the cookie?)
+	- In future, when pixiv make change in their site
+- [Change log](#change-Log)
+----------------------------
+
  
 # Instalation  
   
@@ -15,12 +34,12 @@ The follow are tested on Linux(Ubuntu 16.04)
 For Windows10 see :
 [README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)  
 
+## install pixiv-extraction
 **Clone the source**
 
 ```
 git clone https://github.com/smilingrumia/pixiv-extraction   
 ```
-
 
 **Install the Dependency**  
 curl:       for http/https comunication  
@@ -52,26 +71,70 @@ make
 mv ./mp4fpsmod <path>/pixiv-extraction/
 ```
 
-**apparmor(Advanced and Optional)**
+### Copy your http header to  httpHeader/
+Now, We will need your login-credential(Cookie) to get the art.  
+  
+Is better to create an account only for this purpose because:  
+1.login-credential(Cookie) will be stored in plain text in httpHeader/.  
+2.if something goes wrong and the program end up leaking your cookie?  
+3.if pixiv decides to ban due to fast-downloading?  
+if you use your account only for viewing, and don’t might to recreate, may be OK.  
+  
+So beginning...  
+as browser, Firefox will be used.
+  
+**Step 1**  
+Login to Pixiv(With a lost-ok account)  
+Open an art  
+Address bar will look like:  ```https://www.pixiv.net/en/artworks/12345678```  
+  
+F12(open devtool) -> Network tab -> F5/Refresh the Pixiv page  
+A list in Network tab will be displayed.  
+May be on the top,  
+select: Domain(```www.pixiv.net```) File(12345678) Type(html)  
+  
+On the right window, goto Headers-> Request Headers  
+Turn ON Raw headers  
+Right Click -> select all -> Right Click -> copy  
+  
+Open httpHeader/pixiv_artpage with text-editor and paste your header    
+(This Header must contain Cookie)  
+  
+Save it.  
+  
+**Step 2**  
+Next in Network tab  
+select one with: Type(json)  
+And like Step 1, copy&pasete the header to httpHeader/pixiv_artlist  
+(This Header must contain Cookie and x-user-id)  
+  
+Save it.  
+  
+Close the devtool.  
+  
+**Step 3**  
+Open some art(picture)  
+Right click 1 image -> Open link in new window  
+Address bar will look like: ```https://i.pximg.net/img-original/img/2016/01/02/03/04/05/12345678_p0.png```  
+  
+F12(open devtool) -> Network tab -> F5/Refresh the Pixiv page  
+On Network tab, select: Domain(```i.pixiv.net```) File(12345678_p0.png)  
+and copy&paste the header to httpHeader/pixiv_art  
+
+if contain follow, EXCLUDE THAT LINE!
 ```
-# Modify it, to suit your environment
-nano  pixiv-extraction/.opt/apparmor-profile
-
-sudo cp pixiv-extraction/.opt/apparmor-profile /etc/apparmor.d/pixiv-extraction
-sudo apt install apparmor-utils
-sudo aa-enforce /etc/apparmor.d/pixiv-extraction
-
-# check
-sudo aa-status | grep -z pixiv
+If-Modified-Since: <something>
+Range: <something>
+If-Range: <something>
 ```
 
-**Install Image viewer(Optional)**  
-Can be anything, mirage is the suggested one here.  
-```
-sudo apt install mirage
-``` 
+(This Header DON’T contain Cookie or x-user-id)  
+  
+Save it.  
 
-**Install Player for ugoira**  
+
+## install mpv
+mpv is a good media player, that will play ugoira smoothly.  
 Install the latest mpv.  
 like mpv(0.30.0) should play smooth, VFR Compatible, and no “title flicking”  
 !! On Ubuntu 16.04, if mpv are installed from default repository, will be old(0.14.0) and fail to play as VFR!!  
@@ -153,68 +216,29 @@ p      playlist-prev
  f          full screen
  q          quit
 ```
-  
-## Copy your http header to  httpHeader/
-Now, We will need your login-credential(Cookie) to get the art.  
-  
-Is better to create an account only for this purpose because:  
-1.login-credential(Cookie) will be stored in plain text in httpHeader/.  
-2.if something goes wrong and the program end up leaking your cookie?  
-3.if pixiv decides to ban due to fast-downloading?  
-if you use your account only for viewing, and don’t might to recreate, may be OK.  
-  
-So beginning...  
-as browser, Firefox will be used.
-  
-**Step 1**  
-Login to Pixiv(With a lost-ok account)  
-Open an art  
-Address bar will look like:  ```https://www.pixiv.net/en/artworks/12345678```  
-  
-F12(open devtool) -> Network tab -> F5/Refresh the Pixiv page  
-A list in Network tab will be displayed.  
-May be on the top,  
-select: Domain(```www.pixiv.net```) File(12345678) Type(html)  
-  
-On the right window, goto Headers-> Request Headers  
-Turn ON Raw headers  
-Right Click -> select all -> Right Click -> copy  
-  
-Open httpHeader/pixiv_artpage with text-editor and paste your header    
-(This Header must contain Cookie)  
-  
-Save it.  
-  
-**Step 2**  
-Next in Network tab  
-select one with: Type(json)  
-And like Step 1, copy&pasete the header to httpHeader/pixiv_artlist  
-(This Header must contain Cookie and x-user-id)  
-  
-Save it.  
-  
-Close the devtool.  
-  
-**Step 3**  
-Open some art(picture)  
-Right click 1 image -> Open link in new window  
-Address bar will look like: ```https://i.pximg.net/img-original/img/2016/01/02/03/04/05/12345678_p0.png```  
-  
-F12(open devtool) -> Network tab -> F5/Refresh the Pixiv page  
-On Network tab, select: Domain(```i.pixiv.net```) File(12345678_p0.png)  
-and copy&paste the header to httpHeader/pixiv_art  
 
-if contain follow, EXCLUDE THAT LINE!
+## install Optionals
+
+**apparmor(Advanced and Optional)**
 ```
-If-Modified-Since: <something>
-Range: <something>
-If-Range: <something>
+# Modify it, to suit your environment
+nano  pixiv-extraction/.opt/apparmor-profile
+
+sudo cp pixiv-extraction/.opt/apparmor-profile /etc/apparmor.d/pixiv-extraction
+sudo apt install apparmor-utils
+sudo aa-enforce /etc/apparmor.d/pixiv-extraction
+
+# check
+sudo aa-status | grep -z pixiv
 ```
 
-(This Header DON’T contain Cookie or x-user-id)  
-  
-Save it.  
-  
+**Image viewer(Optional)**  
+Image viewer Can be anything, mirage is the suggested one here.  
+```
+sudo apt install mirage
+``` 
+
+
 # Run  
 **Normal mode**  
 ```./extraction.py <url1> <url2> ...```  
@@ -265,7 +289,7 @@ Ugoira: save_ugoira/
   A lazy solution was done, see .otp/pageToUrl.js 
   (not sure how to do ‘cat dllist | xargs ./extraction.py’ on windows) 
   
-### Art filename
+### Art filename format
 By default, the art will be saved like ```art-title_001.jpg```, and if already exist, will be ```art-title(art-id)_001.jpg```  
   
 if want to save like ```art-id_001.jpg```, change the follow:  
