@@ -1,7 +1,7 @@
 [README(日本語)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(%E6%97%A5%E6%9C%AC%E8%AA%9E).md)  
 # pixiv-extraction
 
-Quick and lossless([*detail](https://github.com/smilingrumia/pixiv-extraction/#user-content-detail-of-lossless)) download automation script in python3  
+Simple,quick and lossless([*detail](#detail-of-lossless)) download automation script in python3  
 To download Pixiv images and Ugoira(Pixiv's animated image)  
 
 OS: Linux,Windows10  
