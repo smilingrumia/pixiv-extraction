@@ -271,12 +271,12 @@ Ugoira: save_ugoira/
  Original images are just downloaded.  
   
 **Ugoira**  
- In short, is a VFR mjpeg as .mp4 that mpv can play.
- is NOT gif, apng, webm or lossy mp4.
+ In short, is a VFR mjpeg as .mp4 that mpv can play.  
+ is NOT gif, apng, webm or lossy mp4.  
 
  .mp4 will be make using original Ugoira images,  
  with NO re-encoding or such thing.  
-  And  can be reversed to original images with:  
+ And  can be reversed to original images with:  
  ```
  ffmpeg -i ugoira.mp4 -vcodec copy %06d.jpg
  ```
