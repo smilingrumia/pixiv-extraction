@@ -250,10 +250,10 @@ this will look like
 **Clipboard mode**  
 ```./extraction.py -c```  
   
-copy art url to clipboard  
-open pixiv with Browser, if are using firefox, Right Click -> a on the art thumbnail  
-Copied URL shuld look like: ```https://www.pixiv.net/en/artworks/12345678```  
-Do this on all art that you want  
+Copy art URL to clipboard.  
+open pixiv with browser, if are using firefox, right click -> a on the art thumbnail.  
+copied URL shuld look like: ```https://www.pixiv.net/en/artworks/12345678```  
+Do this on all art that you want.  
 
 Ctrl+C on the terminal  
 if the list looks ok, type y and Enter.  
@@ -271,6 +271,9 @@ Ugoira: save_ugoira/
  Original images are just downloaded.  
   
 **Ugoira**  
+ In short, is a VFR mjpeg as .mp4 that mpv can play.
+ is NOT gif, apng, webm or lossy mp4.
+
  .mp4 will be make using original Ugoira images,  
  with NO re-encoding or such thing.  
   And  can be reversed to original images with:  
