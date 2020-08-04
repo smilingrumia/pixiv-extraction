@@ -158,58 +158,30 @@ def getUrlsFromClipboard():
     # is empty
     urls = ['']
 
-  print('------------ Listening on clipboard ---------------')
+  print('Listening on clipboard...')
   try:
     while True:
       try:
         s = r.clipboard_get()
+
+        # new clipboard text?
         if( urls[len(urls) - 1] != s):
-          urls.append(s)
-          print(s)
+          # is that pixiv url?
+          if( re.search('^https\:\/\/www.pixiv.net([a-z,\/]{1,8})artworks/([0-9]{1,10})$', s)):
+            urls.append(s)
+            print(s)
+
       except:
         None
       time.sleep(0.1)
   except:
     print()
-  
-  #print('---------- The follow will be download ------------')
-  #for url in urls[1:]:
-  #  print(url)
-  
+
   print('\nIs Ok?(y/n)')
   if( input() == 'y'):
     return urls[1:]
   else:
     return []
-
-'''
-def saveArtInformation(info_file, art_url, img_length, art_title, art_artist, art_comment):
-  def printToFile(s, f):
-    print(s, file=f)
-
-  f = open(info_file,'w')
-  printToFile('[Url]', f)
-  f.close()
-
-  f = open(info_file,'a')
-  printToFile(art_url, f)
-  printToFile('', f)
-  if( img_length > 1):
-    printToFile('[Img length]', f)
-    printToFile(str(img_length), f)
-    printToFile('', f)
-  printToFile('[Title]', f)
-  printToFile(art_title, f)
-  printToFile('', f)
-  printToFile('[Artist]', f)
-  printToFile(art_artist, f)
-  printToFile('', f)
-  printToFile('[Comment]', f)
-  printToFile(art_comment, f)
-  printToFile('', f)
-  printToFile('', f)
-  f.close()
-'''
 
 
 def excludeCharacterFromArtInfo(info):

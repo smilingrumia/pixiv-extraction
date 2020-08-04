@@ -5,12 +5,12 @@ Simple,quick and lossless([*detail](#detail-of-lossless)) download automation sc
 To download Pixiv images and Ugoira(Pixiv's animated image)  
 
 OS: Linux,Windows10  
-Version: v0.7.5  
+Version: v0.7.6  
 
 ###### use with respect at their server, Cheers.
 
 
-Abstract
+Overview
 ===========================
 - [Install](#Instalation)
 	- [pixiv-extraction](#install-pixiv-extraction)
