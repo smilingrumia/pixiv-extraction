@@ -42,14 +42,6 @@ git clone https://github.com/smilingrumia/pixiv-extraction
 ```
 
 **Install the Dependency**  
-curl:       for http/https comunication  
-7-zip:         for unzip Ugoira  
-ffmpeg:     for lossless conversion of ugoira(images) to mp4  
-python3-tk: for clipboard downloading mode  
-python3:    if don’t have, install it too  
-mp4fpsmod:  to make a VFR mp4  
-python3-brotli: to decompress "Accept-Encoding: br"
-  
 ```
 sudo apt update
 sudo apt install curl p7zip-full ffmpeg python3-tk python3-brotli
@@ -306,6 +298,20 @@ SAVE_FORMAT = 1
 ### MAYBE: is better NOT  logout via pixiv web page(this may disable the cookie?)
 In case that pixiv-extraction are working, but after logout via pixiv web page aren't working,  
 Do the Step 1 to 3, and to “logout”, clean the pixiv cookie via browser.  
+
+### “Clipboard-mode” + youtube-dl
+Liked the clipboard-mode URL pickup?  
+A bonus script on ./opt/clipget.py, can help youtube-dl.  
+```
+./clipget.py
+(copy what you want)
+Ctrl+C
+```
+the list will be saven as ‘dllist’ on same directory as clipget.py.  
+Then run something like:  
+```
+cat ./dllist | xargs youtube-dl -f best
+```
   
 ### In future, when pixiv make change in their site
 This programs probably will stop to work with some error message, And have to be updated to continue to work.  
@@ -313,6 +319,10 @@ In that case, when I detect the change, I will announce the situation here, and 
 
 # Change Log
 ```
+ v0.7.6
+  clipboard listening improve(non-pixiv URL will be ignored)
+  bonus in .opt/clipget.py, clipboard-mode pickup that helps youtube-dl(see in Notes)
+  
  v0.7.5
   fix some art title(< and >)
   lazy solution to easly download all arts of artist
