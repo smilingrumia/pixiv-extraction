@@ -23,6 +23,7 @@ Overview
 	- Want to DL all art of the artist, but lazy to click all of them?
 	- Art filename format
 	- MAYBE: is better NOT logout via pixiv web page(this may disable the cookie?)
+	- Clipboard-mode URL pickup + youtube-dl
 	- In future, when pixiv make change in their site
 - [Change log](#change-Log)
 ----------------------------
@@ -299,9 +300,10 @@ SAVE_FORMAT = 1
 In case that pixiv-extraction are working, but after logout via pixiv web page aren't working,  
 Do the Step 1 to 3, and to “logout”, clean the pixiv cookie via browser.  
 
-### “Clipboard-mode” + youtube-dl
+### Clipboard-mode URL pickup + youtube-dl
 Liked the clipboard-mode URL pickup?  
-A bonus script on ./opt/clipget.py, can help youtube-dl.  
+A bonus script on ./opt/clipget.py, can help youtube-dl(a [wide-range sites](https://ytdl-org.github.io/youtube-dl/supportedsites.html) downloader).  
+run:  
 ```
 ./clipget.py
 (copy what you want)
