@@ -18,13 +18,13 @@ Overview
 	- [Optionals](#install-optionals)
 - [Run](#run)
 - [Notes](#notes)
+	- Remove  ‘Email Image’ from firefox
 	- Detail of lossless
 	- Play ugoira on smartphone?
 	- Want to DL all art of the artist, but lazy to click all of them?
 	- Art filename format
 	- MAYBE: is better NOT logout via pixiv web page(this may disable the cookie?)
 	- Clipboard-mode URL pickup + youtube-dl
-	- Remove  ‘Email Image’ from firefox
 	- In future, when pixiv make change in their site
 - [Change log](#change-Log)
 ----------------------------
@@ -227,6 +227,27 @@ Images: save_images/
 Ugoira: save_ugoira/  
   
 # Notes  
+### Remove ‘Email Image’ from firefox
+On firefox, when Right Click -> A on a image(to get the link URL quickly)  
+recent firefox have an option called ‘Email Image...’, that conflict with this shortcut-key.  
+
+If remove ‘Email Image...’, Right Click -> A on a image will easly copy the URL.(a huge difference to who frequently/many downloads)  
+The follow are how to remove ‘Email Image ’ from firefox.  
+
+about:config  
+```
+toolkit.legacyUserProfileCustomizations.stylesheets=true
+```
+
+On firefox profile directory (<something>mozilla/firefox/<something>.default/)  
+create chrome/userChrome.css  
+```
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#context-sendimage { display:none!important; }
+```
+Restart and check if worked.  
+
 ### Detail of lossless
   
 **Images**  
@@ -282,28 +303,7 @@ the list will be saven as ‘dllist’ on same directory as clipget.py.
 Then run something like:  
 ```
 cat ./dllist | xargs youtube-dl -f best
-```
-### Remove ‘Email Image’ from firefox
-On firefox, when Right Click -> A on a image(to get the link URL quickly)  
-recent firefox have an option called ‘Email Image...’, that conflict with this shortcut-key.  
-
-If remove ‘Email Image...’, Right Click -> A on a image will easly copy the URL.(a huge difference to who frequently/many downloads)  
-The follow are how to remove ‘Email Image ’ from firefox.  
-
-about:config  
-```
-toolkit.legacyUserProfileCustomizations.stylesheets=true
-```
-
-On firefox profile directory (<something>mozilla/firefox/<something>.default/)  
-create chrome/userChrome.css  
-```
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
-
-#context-sendimage { display:none!important; }
-```
-
-Restart and check if worked.  
+``` 
 
 ### In future, when pixiv make change in their site
 This programs probably will stop to work with some error message, And have to be updated to continue to work.  
