@@ -24,7 +24,7 @@ Overview
 	- Art filename format
 	- MAYBE: is better NOT logout via pixiv web page(this may disable the cookie?)
 	- Clipboard-mode URL pickup + youtube-dl
-	- Remove  ‘Email Image’ from firefox  New!
+	- Remove  ‘Email Image’ from firefox
 	- In future, when pixiv make change in their site
 - [Change log](#change-Log)
 ----------------------------
@@ -128,10 +128,9 @@ Save it.
 
 
 ## install mpv
-mpv is a good media player, that will play ugoira smoothly.  
-Install the latest mpv.  
-like mpv(0.30.0) should play smooth, VFR Compatible, and no “title flicking”  
-!! On Ubuntu 16.04, if mpv are installed from default repository, will be old(0.14.0) and fail to play as VFR!!  
+mpv is a good media player, that will play ugoira smoothly with no “title flicking”.  
+install the latest mpv.  
+install can be done via ppa,[mpv-build](https://github.com/mpv-player/mpv-build) or manual building [mpv](https://github.com/mpv-player/mpv)  
 
 ***via ppa(Easiest way)***
 ```
@@ -143,27 +142,6 @@ sudo apt install mpv
 mpv --version
 
 # Optional: you can remove the ppa once mpv are installed.
-```
-
-***via mpv-build***  
-```
-# Dependency(for ubuntu 16.04)
-sudo apt install python-minimal libssl-dev libfribidi-dev libluajit-5.1-dev libx264-dev libegl1-mesa-dev \
-git autoconf libtool nasm xorg-dev libglu1-mesa-dev libvdpau* libpulse-dev \
-   libass-dev libavresample-dev libalsa-ocaml-dev liblcms2-dev libluajit-5.1-dev libjpeg-dev
-
-# Clone source
-git clone https://github.com/mpv-player/mpv-build.git
-cd mpv-build
-
-# Enabling optional ffmpeg dependencies
-echo --enable-libx264 >> ffmpeg_options
-
-./rebuild -j4
-sudo ./install
-
-# Check
-mpv –version
 ```
 
 **Configure mpv to be confortable**  
@@ -213,21 +191,8 @@ p      playlist-prev
 
 ## install Optionals
 
-**apparmor(Advanced and Optional)**
-```
-# Modify it, to suit your environment
-nano  pixiv-extraction/.opt/apparmor-profile
-
-sudo cp pixiv-extraction/.opt/apparmor-profile /etc/apparmor.d/pixiv-extraction
-sudo apt install apparmor-utils
-sudo aa-enforce /etc/apparmor.d/pixiv-extraction
-
-# check
-sudo aa-status | grep -z pixiv
-```
-
 **Image viewer(Optional)**  
-Image viewer Can be anything, mirage is the suggested one here.  
+Image viewer can be anything, mirage is good to.  
 ```
 sudo apt install mirage
 ``` 
@@ -330,8 +295,8 @@ about:config
 toolkit.legacyUserProfileCustomizations.stylesheets=true
 ```
 
-On firefox profile directory (<something>mozilla/firefox/<something>.default/) 
-create chrome/userChrome.css
+On firefox profile directory (<something>mozilla/firefox/<something>.default/)  
+create chrome/userChrome.css  
 ```
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
