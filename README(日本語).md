@@ -1,5 +1,7 @@
 [README(English)](https://github.com/smilingrumia/pixiv-extraction)  
 
+#（通訳中、しばらくはメインのREADME推奨）
+
 # pixiv-extraction
 
 高速で無劣化/高画質（[*詳細](https://github.com/smilingrumia/pixiv-extraction/blob/master/README%28%E6%97%A5%E6%9C%AC%E8%AA%9E%29.md#Notes)）の
