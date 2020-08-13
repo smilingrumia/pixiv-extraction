@@ -50,7 +50,7 @@ sudo apt install curl p7zip-full ffmpeg python3-tk python3-brotli
 ```
 
 Install mp4fpsmod:  
-Open [mp4fpsmod github](https://github.com/nu774/mp4fpsmod) -> Release -> DL the latest(here will be 0.26)
+Open [mp4fpsmod](https://github.com/nu774/mp4fpsmod) github -> Release -> DL the latest(here will be 0.26)
 ```
 # some deps that need
 sudo apt install autoconf libtool
@@ -130,7 +130,7 @@ Save it.
 ## install mpv
 mpv is a good media player, that will play ugoira smoothly with no “title flicking”.  
 install the latest mpv.  
-install can be done via ppa,[mpv-build](https://github.com/mpv-player/mpv-build) or manual building [mpv](https://github.com/mpv-player/mpv)  
+install can be done via ppa,[mpv-build](https://github.com/mpv-player/mpv-build) or manualy building [mpv](https://github.com/mpv-player/mpv)  
 
 ***via ppa(Easiest way)***
 ```
@@ -192,7 +192,7 @@ p      playlist-prev
 ## install Optionals
 
 **Image viewer(Optional)**  
-Image viewer can be anything, mirage is good to.  
+mirage is good to.  
 ```
 sudo apt install mirage
 ``` 
