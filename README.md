@@ -209,10 +209,10 @@ this will look like
 **Clipboard mode**  
 ```./extraction.py -c```  
   
-Copy art URL to clipboard.  
+Run './extraction.py -c'
 open pixiv with browser, if are using firefox, Right Click -> A on the art thumbnail.  
 copied URL shuld look like: ```https://www.pixiv.net/en/artworks/12345678```  
-Do this on all art that you want.  
+do this on all art that you want.  
 
 Ctrl+C on the terminal  
 if the list looks ok, type y and Enter.  
