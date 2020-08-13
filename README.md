@@ -132,7 +132,7 @@ mpv is a good media player, that will play ugoira smoothly with no “title flic
 install the latest mpv.  
 install can be done via ppa,[mpv-build](https://github.com/mpv-player/mpv-build) or manualy building [mpv](https://github.com/mpv-player/mpv).  
 
-***via ppa(Easiest way)***
+***via ppa(Easy)***
 ```
 sudo add-apt-repository ppa:mc3man/mpv-tests
 sudo apt update
