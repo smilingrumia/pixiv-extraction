@@ -128,9 +128,9 @@ Save it.
 
 
 ## install mpv
-mpv is a good media player, that will play ugoira smoothly with no “title flicking”.  
+mpv is a good media player, that will play ugoira smoothly with no “title flicking”  
 install the latest mpv.  
-install can be done via ppa,[mpv-build](https://github.com/mpv-player/mpv-build) or manualy building [mpv](https://github.com/mpv-player/mpv)  
+install can be done via ppa,[mpv-build](https://github.com/mpv-player/mpv-build) or manualy building [mpv](https://github.com/mpv-player/mpv).  
 
 ***via ppa(Easiest way)***
 ```
@@ -200,7 +200,7 @@ sudo apt install mirage
 
 # Run  
 **Normal mode**  
-```./extraction.py <url1> <url2> ...```  
+```./extraction.py URL1 URL2 ...```  
   
 this will look like  
 ```./extraction.py https://www.pixiv.net/en/artworks/12345678 https://www.pixiv.net/en/artworks/23456789 ...```  
@@ -210,7 +210,7 @@ this will look like
 ```./extraction.py -c```  
   
 Copy art URL to clipboard.  
-open pixiv with browser, if are using firefox, right click -> a on the art thumbnail.  
+open pixiv with browser, if are using firefox, Right Click -> A on the art thumbnail.  
 copied URL shuld look like: ```https://www.pixiv.net/en/artworks/12345678```  
 Do this on all art that you want.  
 
@@ -231,7 +231,7 @@ Ugoira: save_ugoira/
 On firefox, when Right Click -> A on a image(to get the link URL quickly)  
 recent firefox have an option called ‘Email Image...’, that conflict with this shortcut-key.  
 
-If remove ‘Email Image...’, Right Click -> A on a image will easly copy the URL.(a huge difference to who frequently/many downloads)  
+If remove ‘Email Image...’, Right Click -> A on a image will easly copy the URL.(a huge difference to who frequently/many download)  
 The follow are how to remove ‘Email Image ’ from firefox.  
 
 about:config  
