@@ -326,17 +326,17 @@ If remove ‘Email Image...’, Right Click -> A on a image will easly copy the 
 The follow are how to remove ‘Email Image ’ from firefox.  
 
 about:config  
-'''
+```
 toolkit.legacyUserProfileCustomizations.stylesheets=true
-'''
+```
 
 On firefox profile directory (<something>mozilla/firefox/<something>.default/) 
 create chrome/userChrome.css
-'''
+```
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
 #context-sendimage { display:none!important; }
-'''
+```
 
 Restart and check if worked.  
 
