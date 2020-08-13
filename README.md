@@ -209,7 +209,7 @@ this will look like
 **Clipboard mode**  
 ```./extraction.py -c```  
   
-Run './extraction.py -c'
+Run './extraction.py -c'  
 open pixiv with browser, if are using firefox, Right Click -> A on the art thumbnail.  
 copied URL shuld look like: ```https://www.pixiv.net/en/artworks/12345678```  
 do this on all art that you want.  
