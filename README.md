@@ -7,7 +7,7 @@ OS: Linux,Windows10
 Version: v0.7.6  
 
 This README is primary written for Linux.  
-for Windows user, some of the way is bit different so see [README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)
+for Windows user, some of the way is bit different so see also [README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)
 
 Overview
 ===========================
