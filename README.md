@@ -123,7 +123,7 @@ Save it.
 
 
 ## install mpv
-mpv is a good media player, that will play ugoira smoothly with no “title flicking”  
+mpv is a good media player, that will play ugoira smoothly.    
 install the latest mpv.  
 install can be done via ppa,[mpv-build](https://github.com/mpv-player/mpv-build) or manualy building [mpv](https://github.com/mpv-player/mpv).  
 
@@ -191,15 +191,15 @@ mirage is good to.
 ```
 sudo apt install mirage
 ``` 
-Most of pixiv art name are in japanese, and mirage's sort order culd become weird.  
+A big part of pixiv art title are in japanese, and mirage's sort order culd become weird.  
 in that case, launching mirage like this may help:  
 
-manual solution:
+manual solution:  
 ```
 LANG=ja_JP.UTF-8 /usr/bin/mirage
 ```
-wrapper solution:
-sudo nano /usr/local/bin/mirage
+wrapper solution:  
+sudo nano /usr/local/bin/mirage  
 ```
 #!/bin/bash
 
