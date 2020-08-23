@@ -4,16 +4,16 @@
 
 シンプルで無劣化（[詳細](#detail-of-lossless)）のPixiv画像とうごイラのダウンロードツール   
 
-OS: Linux,Windows10
+OS: Linux,Windows10  
 Version: v0.7.6  
 
 このREADMEはLinuxを対象としています、  
-Windowsの方なら部分的に違いがあるので、[README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md) )もお読みください。  
+Windowsの方なら部分的に違いがあるので、[README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)もお読みください。  
 
 Overview
 ===========================
 - [インストール](#Installation)
-	- [pixiv-extraction](#install-pixiv-extraction)
+	- [pixiv-extraction](#pixiv-extractionのインストール)
 	- [mpv](#mpvのインストール)
 	- [その他](#その他のインストール)
 - [実行](#run)
@@ -32,7 +32,7 @@ Overview
  
 # Installation  
  
-## install pixiv-extraction
+## pixiv-extractionのインストール
 **本ソフトのダウンロード**
 
 ```
@@ -45,8 +45,8 @@ sudo apt update
 sudo apt install curl p7zip-full ffmpeg python3-tk python3-brotli
 ```
 
-Install mp4fpsmod:  
-[mp4fpsmod](https://github.com/nu774/mp4fpsmod)のgithubを開く -> Release -> 最新をDL(ここでは0.26)
+mp4fpsmodのインストール:  
+[mp4fpsmod](https://github.com/nu774/mp4fpsmod)のgithubを開く -> Releases -> 最新をDL(ここでは0.26)
 ```
 # コンパイルに必要になるかもしれない依存性
 sudo apt install autoconf libtool
@@ -116,7 +116,7 @@ Range: <something>
 If-Range: <something>
 ``` 
 
-(このヘッダにはCookieもx-user-idも**含まれません**)  
+(このヘッダにはCookieもx-user-idも含まれません)  
   
 保存。  
 
@@ -138,7 +138,7 @@ mpv --version
 # Optional: you can remove the ppa once mpv are installed.
 ```
 
-**快適な再生の為の、mpvの設定**  
+**快適なうごイラ再生の為の、mpvの設定**  
 nano ~/.config/mpv/mpv.conf  
 ```
 # Change this for better performance on general use.
@@ -185,12 +185,12 @@ p      playlist-prev
 
 ## その他のインストール
 
-**Image viewer(スキップ可)**  
+**イメージビューアー(スキップ可)**  
 mirageも良いビューアーです。  
 ```
 sudo apt install mirage
 ``` 
-もしLinuxが英語環境で画像表示の順番がおかしい場合は以下ようにmirageを起動すると良いかもしれません。
+もしLinuxが英語環境で画像表示の順番がおかしい場合は以下ようにmirageを起動すると良いかもしれません。  
 一時的な解決法    
 ```
 LANG=ja_JP.UTF-8 /usr/bin/mirage
@@ -208,7 +208,7 @@ sudo chmod 755 /usr/local/bin/mirage
 **ノーマル・モード**  
 ```./extraction.py URL1 URL2 ...```  
 
-これは実際には以下のようになります:   
+実際には以下のようになります:   
 ```./extraction.py https://www.pixiv.net/en/artworks/12345678 https://www.pixiv.net/en/artworks/23456789 ...```  
   
    
@@ -216,14 +216,15 @@ sudo chmod 755 /usr/local/bin/mirage
 ```./extraction.py -c```  
   
 './extraction.py -c'を実行  
-Pixivをブラウザで開き、firefoxならDLしたい画像サムネイルを右クリック->AでURLをコピー。  
-コピーしたURLはこのような形です: ```https://www.pixiv.net/en/artworks/12345678```  
+Pixivをブラウザで開き、firefoxならDLしたい画像を右クリック->AでURLをコピー。  
+コピーしたURLは: ```https://www.pixiv.net/artworks/12345678```  
 DLしたいアートを次々コピーしましょう。  
 
 DLを開始したければ、ターミナルでCtrl+C。  
 問題なければyとEnterを押しましょう。  
 
-重要: 最近のfirefoxは'画像をメールで送信する'ようなオプションがあり、これが右クリック->Aとバッティングしてしまいます。  
+**重要**: 最近のfirefoxは'画像をメールで送信する'ようなオプションがあり、  
+これが右クリック->Aとバッティングしてしまいます。  
 '画像をメールで送信する'オプションをfirefoxから取り除く方法をNotesで解説しています。  
   
 バージョンを見たければ、シンプルに./extraction.py  
@@ -245,7 +246,7 @@ about:config
 toolkit.legacyUserProfileCustomizations.stylesheets=true
 ```
 
-firefoxのプロファイルディレクトリ(<something>mozilla/firefox/<something>.default/)  
+firefoxのプロファイルディレクトリにて(<something>mozilla/firefox/<something>.default/)  
 chrome/userChrome.cssを作成  
 ```
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
@@ -260,12 +261,13 @@ firefoxを再起動して確認。
 オリジナル画像がダウンロードされます。 
   
 **うごイラ**  
- うごイラは、複数のjpeg画像とフレームレート情報（１画像毎に何ミリ秒待つかが設定されています、つまりVFR）から成り立ちます。
+ うごイラは、複数のjpeg画像とフレームレート情報から成り立ちます。  
+ １画像毎に何ミリ秒待つかが設定されているのでVFR（可変フレームレート）です。  
 
-　本ソフトでは無劣化のうごイラ動画を作成する為に、
-　mjpeg形式の動画（便宜上.mp4）を作り、mp4fpsmodでVFR(可変フレームレート)化します。
-　画質とフレームレートともに無劣化です。
-　本ソフトで作成するのはgif,apng,webmでも劣化mp4でもありません。
+　本ソフトでは無劣化のうごイラ動画を作成する為に、  
+　mjpeg形式の動画（便宜上.mp4）を作り、mp4fpsmodでVFR化します。  
+　画質とフレームレートともに無劣化です。  
+　本ソフトで作成するのはgif,apng,webmでも劣化mp4でもありません。  
 
  再エンコード等は一切されませんし、以下のコマンドでオリジナル画像への復元も可能です。  
  ```
@@ -273,7 +275,7 @@ firefoxを再起動して確認。
  ```
   
 ### スマホでうごイラを再生する方法
-  mpv playerをスマホでインストール。  
+  mpv playerをスマホにインストール。  
   mpv -> Settings -> Advanced ->  Edit mpv.conf -> loopと入力 -> SAVE  
   うごイラをスマホにコピーして再生。 
 
