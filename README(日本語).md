@@ -2,12 +2,12 @@
 
 # pixiv-extraction
 
-シンプルで無劣化（[詳細](#無劣化の詳細)）のPixiv画像とうごイラのダウンロードツール   
+シンプルで無劣化（[詳細](#無劣化の詳細)）のPixiv画像とうごイラのダウンロードツール。   
 
 OS: Linux,Windows10  
 Version: v0.7.6  
 
-このREADMEはLinuxを対象としています、  
+このREADMEは主にLinuxを対象としています、  
 Windowsの方なら部分的に違いがあるので、[README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)もお読みください。  
 
 Overview
@@ -265,12 +265,11 @@ firefoxを再起動して確認。
 うごイラは、複数のjpeg画像とフレームレート情報から成り立ちます。  
 １画像毎に何ミリ秒待つかが設定されているのでVFR（可変フレームレート）です。  
 
-本ソフトでは無劣化のうごイラ動画を作成する為に、  
-mjpeg形式の動画（便宜上.mp4）を作り、mp4fpsmodでVFR化します。  
+本ソフトでは、オリジナルのjpegを使ってmjpeg形式の動画（便宜上.mp4）を作り、mp4fpsmodでVFR化します。  
 画質とフレームレートともに無劣化です。  
 本ソフトで作成するのはgif,apng,webmでも劣化mp4でもありません。  
 
-再エンコード等は一切されませんし、以下のコマンドでオリジナル画像への復元も可能です。  
+以下のコマンドでオリジナル画像への復元も可能です。  
 ```
 ffmpeg -i ugoira.mp4 -vcodec copy %06d.jpg
 ```
