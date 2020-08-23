@@ -1,48 +1,54 @@
 [README(English)](https://github.com/smilingrumia/pixiv-extraction)  
 
-#（通訳中、しばらくはメインのREADME推奨）
-
 # pixiv-extraction
 
-高速で無劣化/高画質（[*詳細](https://github.com/smilingrumia/pixiv-extraction/blob/master/README%28%E6%97%A5%E6%9C%AC%E8%AA%9E%29.md#Notes)）の
-Pixiv「画像」と「うごイラ」のダウンローダーです。  
+シンプルで無劣化（[詳細](#detail-of-lossless)）のPixiv画像とうごイラのダウンロードツール   
 
-OS: Linux,Windows10  
-Version: v0.7.5  
+OS: Linux,Windows10
+Version: v0.7.6  
 
-###### サーバーをリスペクトしつつ使いましょう, Cheers.
+このREADMEはLinuxを対象としています、  
+Windowsの方なら部分的に違いがあるので、[README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md) )もお読みください。  
+
+Overview
+===========================
+- [インストール](#Installation)
+	- [pixiv-extraction](#install-pixiv-extraction)
+	- [mpv](#mpvのインストール)
+	- [その他](#その他のインストール)
+- [実行](#run)
+- [Notes](#notes)
+	- '画像をメールで送信する'をfirefoxから取り除く
+	- 無劣化の詳細
+	- スマホでうごイラを再生する方法
+	- Want to DL all art of the artist, but lazy to click all of them?
+	- Art filename format
+	- 多分: Pixiv経由でログアウトするとクッキーが解除される恐れがあります
+	- Clipboard-mode URL pickup + youtube-dl
+	- 将来pixivのウェブページの仕様が変更になった時
+- [Change log](#change-Log)
+----------------------------
+
  
-# インストール
-  
-以下の手順はLinux(Ubuntu 16.04)で確認  
-Windows10はこちらを参考に:
-[README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)  
-
-**本ソースのクローン**
+# Installation  
+ 
+## install pixiv-extraction
+**本ソフトのダウンロード**
 
 ```
 git clone https://github.com/smilingrumia/pixiv-extraction   
 ```
 
-
-**依存性**  
-curl:　http/https通信  
-7-zip: うごイラの解凍  
-ffmpeg: うごイラをmp4に変換  
-python3-tk: 「クリップボード・ダウンロード」モード  
-python3:　このスクリプトはpython3なので、もし未インスールであればこちらも  
-mp4fpsmod:  VFR(可変フレームレート)なうごイラ.mp4を作成  
-python3-brotli: "Accept-Encoding: br"のデコード  
-  
+**依存性のインストール**  
 ```
 sudo apt update
 sudo apt install curl p7zip-full ffmpeg python3-tk python3-brotli
 ```
 
-mp4fpsmodのインストール:  
-[mp4fpsmod github](https://github.com/nu774/mp4fpsmod)を開く -> Release -> 最新をDL(ここでは0.26)
+Install mp4fpsmod:  
+[mp4fpsmod](https://github.com/nu774/mp4fpsmod)のgithubを開く -> Release -> 最新をDL(ここでは0.26)
 ```
-#  依存性
+# コンパイルに必要になるかもしれない依存性
 sudo apt install autoconf libtool
 
 tar xf mp4fpsmod-0.26.tar.gz
@@ -52,120 +58,17 @@ cd mp4fpsmod-0.26
 make
 
 # コンパイルしたバイナリをpixiv-extraction/に移動
-mv ./mp4fpsmod <path>/pixiv-extraction/
+mv ./mp4fpsmod <path>/pixiv-extraction/  
 ```
 
-**apparmor(上級者向け、スキップ可)**
-```
-# 各環境に適応するように編集
-nano  pixiv-extraction/.opt/apparmor-profile
-
-sudo cp pixiv-extraction/.opt/apparmor-profile /etc/apparmor.d/pixiv-extraction
-sudo apt install apparmor-utils
-sudo aa-enforce /etc/apparmor.d/pixiv-extraction
-
-# 確認
-sudo aa-status | grep -z pixiv
-```
-
-**イメージビューアーのインストール(スキップ可)**  
-どのビューアーでも大丈夫ですが、ここではmirageがおすすめです。  
-```
-sudo apt install mirage
-```
-
-**うごイラ用のプレイヤーのインストール**  
-最新のmpvをインストールしてください。  
-例えばmpv(0.30.0)はスムーズ、VFR、"タイトルがちらつく現象"も無く快適です。  
-!!Ubuntu16.04の場合、デフォルトのリポジトリからインストールすると古いため（0.14.0）VFRに失敗します!!  
-
-**ppaを使ってインストール（一番簡単です）**  
-```
-sudo add-apt-repository ppa:mc3man/mpv-tests
-sudo apt update
-sudo apt install mpv
-
-# check
-mpv --version
-
-# インストール後はppaを無くしても大丈夫です。
-```
-
-**mpv-buildを使ってインストール**  
-```
-# Dependency(for ubuntu 16.04)
-sudo apt install python-minimal libssl-dev libfribidi-dev libluajit-5.1-dev libx264-dev libegl1-mesa-dev \
-git autoconf libtool nasm xorg-dev libglu1-mesa-dev libvdpau* libpulse-dev \
-   libass-dev libavresample-dev libalsa-ocaml-dev liblcms2-dev libluajit-5.1-dev libjpeg-dev
-
-# Clone source
-git clone https://github.com/mpv-player/mpv-build.git
-cd mpv-build
-
-# Enabling optional ffmpeg dependencies
-echo --enable-libx264 >> ffmpeg_options
-
-./rebuild -j4
-sudo ./install
-
-# Check
-mpv –version
-```
-
-**快適な動作の為の設定**  
-nano ~/.config/mpv/mpv.conf  
-```
-# Change this for better performance on general use.
-#hwdec=vdpau
-#vo=vdpau
-
-loop
-idle=yes
-force-window
-
-# volume more than 100% brakes sound quality
-volume-max=100
-
-# don't show notifications when change volume, seek ,etc
-osd-level=0
-
-# play on original size
-video-unscaled=yes
-
-# this may help on "viewing big ugoira -> press 'n' to go to next, but mpv still fixed big"
-#no-border
-```
-
-nano ~/.config/mpv/input.conf  
-```
-UP		add volume 5
-DOWN	add volume -5
-n		playlist-next    
-p		playlist-prev
-```
-
-**mpvのベーシックなコマンド**
-```
- n          next video      (複数のうごイラをmpvプレイヤーにドラッグ＆ドロップした時に有効です)
- p          previous video  (複数のうごイラをmpvプレイヤーにドラッグ＆ドロップした時に有効です)
- UP         volume up
- DOWN       volume down
- RIGHT      5sec next
- LEFT       5sec back
- Alt+RIGHT  right rotate
- Alt+LEFT   left rotate
- f          full screen
- q          quit
-```
-  
-## httpヘッダーをhttpHeader/へコピー
+### あなたのHTTPヘッダーをhttpHeader/にコピー
 アートの取得には、あなたのPixivのログイン情報（Cookie）が必要です。  
   
 以下の理由により専用のアカウントを作るのがベターです。  
 1.ログイン情報(Cookie)が平文（暗号化されずに）httpHeader/に保存される為.  
 2.もしも誤った事が起きてクッキーが漏れたら？   
 3.もしもPixivがダウンローダーを使った事でBANしたら？  
-ただし、ほぼ閲覧しかしないアカウントや失っても再作成すれば良いよ、という人なら多分大丈夫だと思います。  
+ただし、ほぼ閲覧しかしないアカウントや失っても再作成すれば良い方なら多分大丈夫だと思います。  
   
 それでは以下の手順でhttpヘッダーをコピーしましょう、ブラウザはFirefoxを使います。  
   
@@ -216,67 +119,195 @@ If-Range: <something>
 (このヘッダにはCookieもx-user-idも**含まれません**)  
   
 保存。  
-  
-# 実行  
+
+
+## mpvのインストール
+mpvは本ソフトで作成したうごイラもスムーズに再生できるgoodなプレイヤーです。  
+最新のmpvをインストールしましょう。  
+最新のmpvはppa,[mpv-build](https://github.com/mpv-player/mpv-build)または手動で[mpv](https://github.com/mpv-player/mpv)をビルドしてインストール出来ます。  
+
+***ppa(簡単な方法)***
+```
+sudo add-apt-repository ppa:mc3man/mpv-tests
+sudo apt update
+sudo apt install mpv
+
+# check
+mpv --version
+
+# Optional: you can remove the ppa once mpv are installed.
+```
+
+**快適な再生の為の、mpvの設定**  
+nano ~/.config/mpv/mpv.conf  
+```
+# Change this for better performance on general use.
+#hwdec=vdpau
+#vo=vdpau
+
+loop
+idle=yes
+force-window
+
+# volume more than 100% brakes sound quality
+volume-max=100
+
+# don't show notifications when change volume, seek ,etc
+osd-level=0
+
+# play on original size
+video-unscaled=yes
+
+# this may help on "viewing big ugoira -> press 'n' to go to next, but mpv still fixed big"
+#no-border
+```
+nano ~/.config/mpv/input.conf  
+```
+UP     add volume 5
+DOWN   add volume -5
+n      playlist-next    
+p      playlist-prev
+```
+
+**mpv basic commands**  
+```
+ n          next video     (this works when Drug&Drop multiple .mp4 on mpv)
+ p          previous video (this works when Drug&Drop multiple .mp4 on mpv)
+ UP         volume up
+ DOWN       volume down
+ RIGHT      5sec next
+ LEFT       5sec back
+ Alt+RIGHT  right rotate
+ Alt+LEFT   left rotate
+ f          full screen
+ q          quit
+```
+
+## その他のインストール
+
+**Image viewer(スキップ可)**  
+mirageも良いビューアーです。  
+```
+sudo apt install mirage
+``` 
+もしLinuxが英語環境で画像表示の順番がおかしい場合は以下ようにmirageを起動すると良いかもしれません。
+一時的な解決法    
+```
+LANG=ja_JP.UTF-8 /usr/bin/mirage
+```
+永続的な解決方（ラッパーを作成する）  
+sudo nano /usr/local/bin/mirage
+```
+#!/bin/bash
+
+LANG=ja_JP.UTF-8 /usr/bin/mirage "${1}"
+```
+sudo chmod 755 /usr/local/bin/mirage
+
+# 実行
 **ノーマル・モード**  
-```./extraction.py <url1> <url2> ...```  
-  
-実際は以下のようになります  
+```./extraction.py URL1 URL2 ...```  
+
+これは実際には以下のようになります:   
 ```./extraction.py https://www.pixiv.net/en/artworks/12345678 https://www.pixiv.net/en/artworks/23456789 ...```  
   
    
-**高速なクリップボード・モード**  
+**クリップボード・モード**  
 ```./extraction.py -c```  
   
-ダウンロードしたいアートのコピーを開始（右クリック -> aで楽に出来ます）  
-コピーされたURLはこのフォーマットです: ```https://www.pixiv.net/artworks/12345678```  
-  
-ターミナルでCtrl+C。  
-良さそうであればyとEnter.  
-  
-バージョンを確認するには./extraction.py  
+'./extraction.py -c'を実行  
+Pixivをブラウザで開き、firefoxならDLしたい画像サムネイルを右クリック->AでURLをコピー。  
+コピーしたURLはこのような形です: ```https://www.pixiv.net/en/artworks/12345678```  
+DLしたいアートを次々コピーしましょう。  
 
-**保存先**  
+DLを開始したければ、ターミナルでCtrl+C。  
+問題なければyとEnterを押しましょう。  
+
+重要: 最近のfirefoxは'画像をメールで送信する'ようなオプションがあり、これが右クリック->Aとバッティングしてしまいます。  
+'画像をメールで送信する'オプションをfirefoxから取り除く方法をNotesで解説しています。  
+  
+バージョンを見たければ、シンプルに./extraction.py  
+
+**保存場所**  
 画像: save_images/  
 うごイラ: save_ugoira/  
   
 # Notes  
-### 無劣化・高画質の詳細
+### '画像をメールで送信する'をfirefoxから取り除く
+'画像をメールで送信する'をfirefoxから取り除いた場合、  
+クリップボードモードで本ソフトを起動し、DLしたい画像を右クリック->AだけでDL予定リストに入れる事が出来ます。  
+'画像をメールで送信する'が残ったままだと右クリック->A->Enterと不便です。  
+
+以下が取り除く方法です  
+
+about:config  
+```
+toolkit.legacyUserProfileCustomizations.stylesheets=true
+```
+
+firefoxのプロファイルディレクトリ(<something>mozilla/firefox/<something>.default/)  
+chrome/userChrome.cssを作成  
+```
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+#context-sendimage { display:none!important; }
+```
+firefoxを再起動して確認。  
+
+### 無劣化の詳細
   
 **画像**  
- オリジナル画像がダウンロードされます。  
+オリジナル画像がダウンロードされます。 
   
 **うごイラ**  
- オリジナル画像がダウンロードされて、mp4に変換されます。  
+ うごイラは、複数のjpeg画像とフレームレート情報（１画像毎に何ミリ秒待つかが設定されています、つまりVFR）から成り立ちます。
+
+　本ソフトでは無劣化のうごイラ動画を作成する為に、
+　mjpeg形式の動画（便宜上.mp4）を作り、mp4fpsmodでVFR(可変フレームレート)化します。
+　画質とフレームレートともに無劣化です。
+　本ソフトで作成するのはgif,apng,webmでも劣化mp4でもありません。
+
  再エンコード等は一切されませんし、以下のコマンドでオリジナル画像への復元も可能です。  
  ```
  ffmpeg -i ugoira.mp4 -vcodec copy %06d.jpg
  ```
- 
-もう一つ重要なのが、うごイラはVFR（可変フレームレート）形式という事です。  
-実際には10-20%程？のうごイラはVFRとして作成されています。  
-pixivi-extractionはVFRに対応しています！ mp4fpsmodのおかげです、感謝！  
   
-### スマートフォンでうごイラを再生したい場合
-mpvプレイヤーをインストールし  
-mpvを起動 -> Settings -> Advanced -> Edit mpv.conf -> loopと入力する -> SAVE  
-うごイラをスマートフォンにコピーして再生  
+### スマホでうごイラを再生する方法
+  mpv playerをスマホでインストール。  
+  mpv -> Settings -> Advanced ->  Edit mpv.conf -> loopと入力 -> SAVE  
+  うごイラをスマホにコピーして再生。 
 
-### 作者の全ての作品をダウンロードしたいけど、いちいち全部クリックするのが面倒？
- 手抜きですが.otp/pageToUrl.jsを参考に解決出来るかもしれません。  
-（windowsだと'cat dllist | xargs ./extraction.py'をどうやるかが分かりませんが）  
-
-### 保存先ファイル名
-デフォルトでは ```タイトル_001.jpg```か、すでに存在していれば```タイトル(アートID)_001.jpg```となります。  
-```アートID_001.jpg```のように保存したければ以下を編集してください。  
+### Want to DL all art of the artist, but lazy to click all of them?
+  A lazy solution was done, see .otp/pageToUrl.js 
+  (not sure how to do ‘cat dllist | xargs ./extraction.py’ on windows) 
+  
+### Art filename format
+By default, the art will be saved like ```art-title_001.jpg```, and if already exist, will be ```art-title(art-id)_001.jpg```  
+  
+if want to save like ```art-id_001.jpg```, change the follow:  
 extraction.py  
 SAVE_FORMAT = 0  
-を以下のように  
+to  
 SAVE_FORMAT = 1  
   
 ### 多分: Pixiv経由でログアウトするとクッキーが解除される恐れがあります
 pixiv-extractionが正常動作していても、ログアウト後に動作しなくなった場合はこれが疑わしいです。  
 その場合httpヘッダーをもう一度コピーしなおして、ブラウザ側でクッキーを削除すれば”ログアウト”が出来ます。  
+
+### Clipboard-mode URL pickup + youtube-dl
+Liked the clipboard-mode URL pickup?  
+A bonus script on ./opt/clipget.py, can help youtube-dl(a [wide-range sites](https://ytdl-org.github.io/youtube-dl/supportedsites.html) downloader).  
+run:  
+```
+./clipget.py
+(copy what you want)
+Ctrl+C
+```
+the list will be saven as ‘dllist’ on same directory as clipget.py.  
+Then run something like:  
+```
+cat ./dllist | xargs youtube-dl -f best
+``` 
 
 ### 将来pixivのウェブページの仕様が変更になった時
 おそらく何らかのエラーメッセージを表示してダウンロードは失敗します。  
@@ -284,6 +315,10 @@ pixiv-extractionが正常動作していても、ログアウト後に動作し�
 
 # Change Log
 ```
+ v0.7.6
+  clipboard listening improve(non-pixiv URL will be ignored)
+  bonus in .opt/clipget.py, clipboard-mode pickup that helps youtube-dl(see in Notes)
+  
  v0.7.5
   fix some art title(< and >)
   lazy solution to easly download all arts of artist
