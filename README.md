@@ -1,14 +1,13 @@
 [README(日本語)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(%E6%97%A5%E6%9C%AC%E8%AA%9E).md)  
 # pixiv-extraction
 
-Simple,quick and lossless([*detail](#detail-of-lossless)) download automation script.  
-To download Pixiv images and Ugoira(Pixiv's animated image)  
+simple and lossless([detail](#detail-of-lossless)) downloader for Pixiv images/ugoira.
 
 OS: Linux,Windows10  
 Version: v0.7.6  
 
-###### use with respect at their server, Cheers.
-
+This README is primary written for Linux.  
+for Windows user, some of the way is bit different so see [README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)
 
 Overview
 ===========================
@@ -31,10 +30,6 @@ Overview
 
  
 # Instalation  
-  
-The follow are tested on Linux(Ubuntu 16.04)  
-For Windows10 see :
-[README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)  
 
 ## install pixiv-extraction
 **Clone the source**
@@ -196,6 +191,21 @@ mirage is good to.
 ```
 sudo apt install mirage
 ``` 
+Most of pixiv art name are in japanese, and mirage's sort order culd become weird.  
+in that case, launching mirage like this may help:  
+
+manual solution:
+```
+LANG=ja_JP.UTF-8 /usr/bin/mirage
+```
+wrapper solution:
+sudo nano /usr/local/bin/mirage
+```
+#!/bin/bash
+
+LANG=ja_JP.UTF-8 /usr/bin/mirage "${1}"
+```
+sudo chmod 755 /usr/local/bin/mirage
 
 
 # Run  
@@ -217,7 +227,7 @@ do this on all art that you want.
 Ctrl+C on the terminal  
 if the list looks ok, type y and Enter.  
 
-Important: Recent firefox has an option called 'Email Image' that conflict with right click -> a.  
+**Important**: Recent firefox has an option called 'Email Image' that conflict with right click -> a.  
 See "Remove ‘Email Image’ from firefox" on Notes.  
   
 To see version, just Run ./extraction.py  
@@ -251,22 +261,21 @@ Restart and check if worked.
 ### Detail of lossless
   
 **Images**  
- Original images are just downloaded.  
+Original images are just downloaded.  
   
 **Ugoira**  
- In short, is a VFR mjpeg as .mp4 that mpv can play.  
- is NOT gif, apng, webm or lossy mp4.  
+Technically ugoira is sort of jpeg and frame-rate information.  
+each one image, have XX millisecond to wait, this mean that ugoira is VFR(variable frame rate)  
 
- .mp4 will be make using original Ugoira images,  
- with NO re-encoding or such thing.  
- And  can be reversed to original images with:  
- ```
- ffmpeg -i ugoira.mp4 -vcodec copy %06d.jpg
- ```
-  
-  One more thing is that Ugoira is VFR(variable frame rate) by design.  
-  And some part of Ugoira(10-20% maybe?)  are made as VFR,  
-  pixivi-extraction can handle VFR, thanks to mp4fpsmod!  
+On pixiv-extraction, a mjpeg video(conventionally as .mp4) will be make using original images,  
+and then make as VFR using mp4fpsmod.  
+Will be lossless as image-quality and frame-rate.  
+is not gif,apng,webm or lossy mp4.  
+
+And can revert to original ugoira images with:  
+```
+ffmpeg -i ugoira.mp4 -vcodec copy %06d.jpg
+```  
   
 ### Play ugoira on smartphone?
   Install mpv player  
