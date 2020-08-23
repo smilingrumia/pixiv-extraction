@@ -12,7 +12,7 @@ Windowsの方なら部分的に違いがあるので、[README(Windows10)](https
 
 Overview
 ===========================
-- [インストール](#Installation)
+- [インストール](#インストール)
 	- [pixiv-extraction](#pixiv-extractionのインストール)
 	- [mpv](#mpvのインストール)
 	- [その他](#その他のインストール)
@@ -30,7 +30,7 @@ Overview
 ----------------------------
 
  
-# Installation  
+# インストール  
  
 ## pixiv-extractionのインストール
 **本ソフトのダウンロード**
