@@ -2,7 +2,7 @@
 
 # pixiv-extraction
 
-シンプルで無劣化（[詳細](#detail-of-lossless)）のPixiv画像とうごイラのダウンロードツール   
+シンプルで無劣化（[詳細](#無劣化の詳細)）のPixiv画像とうごイラのダウンロードツール   
 
 OS: Linux,Windows10  
 Version: v0.7.6  
@@ -16,7 +16,7 @@ Overview
 	- [pixiv-extraction](#pixiv-extractionのインストール)
 	- [mpv](#mpvのインストール)
 	- [その他](#その他のインストール)
-- [実行](#run)
+- [実行](#実行)
 - [Notes](#notes)
 	- '画像をメールで送信する'をfirefoxから取り除く
 	- 無劣化の詳細
@@ -169,10 +169,10 @@ n      playlist-next
 p      playlist-prev
 ```
 
-**mpv basic commands**  
+**mpvの基本的なコマンド**  
 ```
- n          next video     (this works when Drug&Drop multiple .mp4 on mpv)
- p          previous video (this works when Drug&Drop multiple .mp4 on mpv)
+ n          next video     (複数の動画をmpvにドラッグ＆ドロップした時に有効です)
+ p          previous video (複数の動画をmpvにドラッグ＆ドロップした時に有効です)
  UP         volume up
  DOWN       volume down
  RIGHT      5sec next
@@ -190,12 +190,13 @@ mirageも良いビューアーです。
 ```
 sudo apt install mirage
 ``` 
-もしLinuxが英語環境で画像表示の順番がおかしい場合は以下ようにmirageを起動すると良いかもしれません。  
+もしLinuxが英語環境で画像表示の順番がおかしい場合は、  
+以下の様にmirageを起動すると良いかもしれません。  
 一時的な解決法    
 ```
 LANG=ja_JP.UTF-8 /usr/bin/mirage
 ```
-永続的な解決方（ラッパーを作成する）  
+永続的な解決方（ラッパーを作成）  
 sudo nano /usr/local/bin/mirage
 ```
 #!/bin/bash
@@ -220,8 +221,8 @@ Pixivをブラウザで開き、firefoxならDLしたい画像を右クリック
 コピーしたURLは: ```https://www.pixiv.net/artworks/12345678```  
 DLしたいアートを次々コピーしましょう。  
 
-DLを開始したければ、ターミナルでCtrl+C。  
-問題なければyとEnterを押しましょう。  
+DLの開始には、  
+ターミナルでCtrl+C、問題なければyとEnterを押しましょう。  
 
 **重要**: 最近のfirefoxは'画像をメールで送信する'ようなオプションがあり、  
 これが右クリック->Aとバッティングしてしまいます。  
@@ -261,18 +262,18 @@ firefoxを再起動して確認。
 オリジナル画像がダウンロードされます。 
   
 **うごイラ**  
- うごイラは、複数のjpeg画像とフレームレート情報から成り立ちます。  
- １画像毎に何ミリ秒待つかが設定されているのでVFR（可変フレームレート）です。  
+うごイラは、複数のjpeg画像とフレームレート情報から成り立ちます。  
+１画像毎に何ミリ秒待つかが設定されているのでVFR（可変フレームレート）です。  
 
-　本ソフトでは無劣化のうごイラ動画を作成する為に、  
-　mjpeg形式の動画（便宜上.mp4）を作り、mp4fpsmodでVFR化します。  
-　画質とフレームレートともに無劣化です。  
-　本ソフトで作成するのはgif,apng,webmでも劣化mp4でもありません。  
+本ソフトでは無劣化のうごイラ動画を作成する為に、  
+mjpeg形式の動画（便宜上.mp4）を作り、mp4fpsmodでVFR化します。  
+画質とフレームレートともに無劣化です。  
+本ソフトで作成するのはgif,apng,webmでも劣化mp4でもありません。  
 
- 再エンコード等は一切されませんし、以下のコマンドでオリジナル画像への復元も可能です。  
- ```
- ffmpeg -i ugoira.mp4 -vcodec copy %06d.jpg
- ```
+再エンコード等は一切されませんし、以下のコマンドでオリジナル画像への復元も可能です。  
+```
+ffmpeg -i ugoira.mp4 -vcodec copy %06d.jpg
+```
   
 ### スマホでうごイラを再生する方法
   mpv playerをスマホにインストール。  
