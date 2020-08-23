@@ -6,7 +6,7 @@
 **Python3**  
   1.Download the installer: https://www.python.org  
   2.Start  
-  3.Customize installation  
+  3.Customise installation  
      Confirm that follow are selected(if by default all are selected, it's OK)  
      pip  
      td/tk and IDLE  
@@ -30,7 +30,7 @@
   4.Select all files, and copy inside of pixiv-extraction  
 
 **ffmpeg**  
-  Oficial site:  https://www.ffmpeg.org/download.html  
+  Official site:  https://www.ffmpeg.org/download.html  
 
   1.Download ffmpeg: https://ffmpeg.zeranoe.com/builds/  
   2.Select   
@@ -50,7 +50,7 @@
 
 
 **mpv**  
-  Oficial site: https://mpv.io/installation/  
+  Official site: https://mpv.io/installation/  
 
   1.Download mpv-x86_64-20200510-git-4e94b21.7z: https://sourceforge.net/projects/mpv-player-windows/files/  
   2.Decompress with 7-zip  
