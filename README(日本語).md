@@ -1,5 +1,17 @@
 [README(English)](https://github.com/smilingrumia/pixiv-extraction)  
 
+# 重要
+**Pixiv側のアップデートにより、現在このスクリプトは使用不可です。  
+使用出来るようにリメイクする予定ですが、しばらく時間が掛かるかもしれません。  **
+
+In any case,  
+The teck to make lossless ugoira is:  
+1. Download ugoira.zip and ugoira_meta(the frame rate information is here)  
+2. make mjpeg video: ffmpeg -i ugoira/%06d.jpg -vcodec copy ugoira_pre.mp4  
+3. make timecode.txt from ugoira_meta  
+4. VFR the video: mp4fpsmod -o ugoira.mp4 -x -t timecode.txt ugoira_pre.mp4  
+5. Play ugoira with mpv  
+
 # pixiv-extraction
 
 シンプルで無劣化（[詳細](#無劣化の詳細)）のPixiv画像とうごイラのダウンロードツール。   
