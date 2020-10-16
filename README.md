@@ -1,4 +1,17 @@
 [README(日本語)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(%E6%97%A5%E6%9C%AC%E8%AA%9E).md)  
+
+# Important
+**Due to some update on pixiv, now this script are unusable.  
+I will try to remake to be usable, but this may take a while...**  
+
+In any case,  
+The teck to make lossless ugoira is:  
+1. Download ugoira.zip and ugoira_meta(the frame rate information is here)  
+2. make mjpeg video: ffmpeg -i ugoira/%06d.jpg -vcodec copy ugoira_pre.mp4  
+3. make timecode.txt from ugoira_meta  
+4. VFR the video: mp4fpsmod -o ugoira.mp4 -x -t timecode.txt ugoira_pre.mp4  
+5. Play ugoira with mpv  
+
 # pixiv-extraction
 
 simple and lossless([detail](#detail-of-lossless)) downloader for Pixiv images/ugoira.
