@@ -1,8 +1,8 @@
 [README(English)](https://github.com/smilingrumia/pixiv-extraction)  
 
 # 重要
-**Pixiv側のアップデートにより、現在このスクリプトは使用不可です。  
-使用出来るようにリメイクする予定ですが、しばらく時間が掛かるかもしれません。  **
+**Pixiv側のアップデートにより、現在このスクリプトは使用不可です。**  
+**使用出来るようにリメイクする予定ですが、しばらく時間が掛かるかもしれません。**
 
 In any case,  
 The teck to make lossless ugoira is:  
