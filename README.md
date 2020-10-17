@@ -8,6 +8,20 @@ In any case,
 The teck to make lossless ugoira is:  
 1. Download ugoira.zip and ugoira_meta(the frame rate information is here)  
 2. make mjpeg video: ffmpeg -i ugoira/%06d.jpg -vcodec copy ugoira_pre.mp4  
+```
+note: ffmpeg may skip the 1st frame when play.
+
+      make video with this:
+      000001.jpg(1000ms)  000002.jpg(1000ms)  000003.jpg(1000ms) 
+
+      play like:
+      000002.jpg -> wait 1000ms -> 000003.jpg -> wait 1000ms
+
+      solution of pixiv-extraction is to make a copy of 1st frame:
+      000001.jpg(1ms)  000002.jpg(1000ms)  000003.jpg(1000ms)  000004.jpg(1000ms) 
+
+      000001.jpg and 000002.jpg is identical.
+```
 3. make timecode.txt from ugoira_meta  
 4. VFR the video: mp4fpsmod -o ugoira.mp4 -x -t timecode.txt ugoira_pre.mp4  
 5. Play ugoira with mpv  
