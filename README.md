@@ -1,7 +1,7 @@
 [README(日本語)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(%E6%97%A5%E6%9C%AC%E8%AA%9E).md)  
 
-# Info
-**Due to some changes on Pixiv-side, sometimes this script may not  work (echo error message and stop)**  
+### notice
+**Due to some changes on Pixiv, sometimes this script may not  work (echo error message and stop)**  
 **in that case, try it another day, a day that pixiv may not have congestion,**  
 **like non-hollyday or non-weekend etc.**  
 **If  non-work time are too often, then I may  release one more downloader.**  
