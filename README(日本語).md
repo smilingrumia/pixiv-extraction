@@ -1,30 +1,10 @@
 [README(English)](https://github.com/smilingrumia/pixiv-extraction)  
 
-# 重要
-**Pixiv側のアップデートにより、現在このスクリプトは使用不可です。**  
-**使用出来るようにリメイクする予定ですが、しばらく時間が掛かるかもしれません。**
+# 注意
+**Pixiv側の変更により、本スクリプトが使用出来ない時間帯があるかもしれません（エラーメッセージを出力してストップします）**  
+**その場合は、休日や週末等を避けて、Pixivが混んでさそうな別の日にリトライしてみたください。**  
+**使用できない時間が頻繁にある場合は、別のダウンローダーを公開するかもしれません。**  
 
-In any case,  
-The teck to make lossless ugoira is:  
-1. Download ugoira.zip and ugoira_meta(the frame rate information is here)  
-2. make mjpeg video: ffmpeg -i ugoira/%06d.jpg -vcodec copy ugoira_pre.mp4  
-```
-note: ffmpeg may skip the 1st frame when play.
-
-      make video with this:
-      000001.jpg(1000ms)  000002.jpg(1000ms)  000003.jpg(1000ms) 
-
-      play like:
-      000002.jpg -> wait 1000ms -> 000003.jpg -> wait 1000ms
-
-      solution of pixiv-extraction is to make a copy of 1st frame:
-      000001.jpg(1ms)  000002.jpg(1000ms)  000003.jpg(1000ms)  000004.jpg(1000ms) 
-
-      000001.jpg and 000002.jpg is identical.
-```
-3. make timecode.txt from ugoira_meta  
-4. VFR the video: mp4fpsmod -o ugoira.mp4 -x -t timecode.txt ugoira_pre.mp4  
-5. Play ugoira with mpv  
 
 # pixiv-extraction
 
@@ -51,6 +31,7 @@ Overview
 	- Art filename format
 	- 多分: Pixiv経由でログアウトするとクッキーが解除される恐れがあります
 	- Clipboard-mode URL pickup + youtube-dl
+	- 無劣化のうごイラの作り方
 	- 将来pixivのウェブページの仕様が変更になった時
 - [Change log](#change-Log)
 ----------------------------
@@ -336,6 +317,31 @@ Then run something like:
 ```
 cat ./dllist | xargs youtube-dl -f best
 ``` 
+
+### 無劣化のうごイラの作り方
+
+Format: VFR mjpeg  
+
+How to:  
+1. Download ugoira.zip and ugoira_meta(the frame rate information is here)  
+2. make mjpeg video: ffmpeg -i ugoira/%06d.jpg -vcodec copy ugoira_pre.mp4
+```
+note: ffmpeg may skip the 1st frame when play.
+
+      make video with this:
+      000001.jpg(1000ms)  000002.jpg(1000ms)  000003.jpg(1000ms) 
+
+      play like:
+      000002.jpg -> wait 1000ms -> 000003.jpg -> wait 1000ms
+
+      solution of pixiv-extraction is to make a copy of 1st frame:
+      000001.jpg(1ms)  000002.jpg(1000ms)  000003.jpg(1000ms)  000004.jpg(1000ms) 
+
+      000001.jpg and 000002.jpg is identical.
+```
+3. make timecode.txt from ugoira_meta  
+4. VFR the video: mp4fpsmod -o ugoira.mp4 -x -t timecode.txt ugoira_pre.mp4  
+5. Play ugoira with mpv  
 
 ### 将来pixivのウェブページの仕様が変更になった時
 おそらく何らかのエラーメッセージを表示してダウンロードは失敗します。  
