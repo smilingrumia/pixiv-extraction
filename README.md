@@ -73,8 +73,7 @@ Now, We will need your login-credential(Cookie) to get the art.
   
 Is better to create an account only for this purpose because:  
 1.login-credential(Cookie) will be stored in plain text in httpHeader/.  
-2.if something goes wrong and the program end up leaking your cookie?  
-3.if pixiv decides to ban due to fast-downloading?  
+2.if pixiv decides to ban due to fast-downloading?  
 if you use your account only for viewing, and don’t might to recreate, may be OK.  
   
 So beginning...  
