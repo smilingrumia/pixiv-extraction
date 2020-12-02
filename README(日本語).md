@@ -1,6 +1,6 @@
 [README(English)](https://github.com/smilingrumia/pixiv-extraction)  
 
-### info
+### notice
 **稀ですが失敗する場合は、Pixivが混雑していない日にリトライするか、httpHeaderの再設定を試してみて下さい。**  
 
 
