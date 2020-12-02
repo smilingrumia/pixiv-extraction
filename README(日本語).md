@@ -1,9 +1,7 @@
 [README(English)](https://github.com/smilingrumia/pixiv-extraction)  
 
-### 注意
-**Pixiv側の変更により、本スクリプトが使用出来ない時間帯があるかもしれません（エラーメッセージを出力してストップします）**  
-**その場合は、休日や週末等を避けて、Pixivが混雑してなさそうな日や時間帯にリトライしてみてください。**  
-**使用できない時間が頻繁にある場合は、別のダウンローダーを公開するかもしれません。**  
+### info
+**稀ですが失敗する場合は、Pixivが混雑していない日にリトライするか、httpHeaderの再設定を試してみて下さい。**  
 
 
 # pixiv-extraction
@@ -31,7 +29,7 @@ Overview
 	- Art filename format
 	- 多分: Pixiv経由でログアウトするとクッキーが解除される恐れがあります
 	- Clipboard-mode URL pickup + youtube-dl
-	- 無劣化のうごイラの作り方
+	- 無劣化のうごイラの作り方（デベロッパー向け）
 	- 将来pixivのウェブページの仕様が変更になった時
 - [Change log](#change-Log)
 ----------------------------
@@ -271,9 +269,9 @@ firefoxを再起動して確認。
 うごイラは、複数のjpeg画像とフレームレート情報から成り立ちます。  
 １画像毎に何ミリ秒待つかが設定されているのでVFR（可変フレームレート）です。  
 
-本ソフトでは、オリジナルのjpegを使ってmjpeg形式の動画（便宜上.mp4）を作り、mp4fpsmodでVFR化します。  
-画質とフレームレートともに無劣化です。  
-本ソフトで作成するのはgif,apng,webmでも劣化mp4でもありません。  
+画質とフレームレートともに無劣化で保存する為に、  
+本ソフトでは、うごイラをVFR mjpeg形式（便宜上 .mp4）で保存します。  
+gif,apng,webmでも劣化mp4でもありません。  
 
 以下のコマンドでオリジナル画像への復元も可能です。  
 ```
@@ -317,7 +315,7 @@ Then run something like:
 cat ./dllist | xargs youtube-dl -f best
 ``` 
 
-### 無劣化のうごイラの作り方
+### 無劣化のうごイラの作り方（デベロッパー向け）
 
 Format: VFR mjpeg  
 
