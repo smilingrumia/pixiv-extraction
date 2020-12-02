@@ -1,10 +1,8 @@
 [README(日本語)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(%E6%97%A5%E6%9C%AC%E8%AA%9E).md)  
 
 ### notice
-**Due to some changes on Pixiv, sometimes this script may not  work (echo error message and stop)**  
-**in that case, try it another day, a day that pixiv may not have congestion,**  
-**like non-hollyday or non-weekend etc.**  
-**If  non-work time are too often, then I may  release one more downloader.**  
+**Is rare, but if fail to run, try in another day that pixiv may not have congestion.** 
+**or try to reset the httpHeader.**
 
 # pixiv-extraction
 
@@ -31,7 +29,7 @@ Overview
 	- Art filename format
 	- MAYBE: is better NOT logout via pixiv web page(this may disable the cookie?)
 	- Clipboard-mode URL pickup + youtube-dl
-	- How to make lossless ugoira
+	- How to make lossless ugoira(For Developer)
 	- In future, when pixiv make change in their site
 - [Change log](#change-Log)
 ----------------------------
@@ -274,9 +272,8 @@ Original images are just downloaded.
 Technically ugoira is sort of jpeg and frame-rate information.  
 each one image, have XX millisecond to wait, this mean that ugoira is VFR(variable frame rate)  
 
-On pixiv-extraction, a mjpeg video(conventionally as .mp4) will be make using original images,  
-and then make as VFR using mp4fpsmod.  
-Will be lossless as image-quality and frame-rate.  
+To be lossless as image-quality and frame-rate.  
+pixiv-extraction save Ugoira as VFR mjpeg(conventionally as .mp4)  
 is not gif,apng,webm or lossy mp4.  
 
 And can revert to original ugoira images with:  
@@ -321,7 +318,7 @@ Then run something like:
 cat ./dllist | xargs youtube-dl -f best
 ``` 
 
-### How to make lossless ugoira
+### How to make lossless ugoira(For Developer)
 
 Format: VFR mjpeg  
 
