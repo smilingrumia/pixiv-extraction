@@ -21,7 +21,7 @@ Version: v0.7.6
 	- Detail of lossless
 	- Play ugoira on smartphone?
 	- Art filename
-	- Clipboard-mode URL pickup + yt-dlp
+	- Clipboard pickup + yt-dlp
 	- How to make lossless ugoira(for developer)
 - [Change log](#change-Log)
 ----------------------------
@@ -215,17 +215,15 @@ SAVE_FORMAT = 0
 to  
 SAVE_FORMAT = 1  
 
-### Clipboard-mode URL pickup + yt-dlp
-Liked the clipboard-mode URL pickup?  
-A bonus script ./opt/clipget.py can be used with yt-dlp.  
-run:  
+### Clipboard pickup + yt-dlp
+Liked the clipboard url pickup?  
+a bonus script ./opt/clipget.py can be used with yt-dlp.  
 ```
 ./clipget.py
 (copy what you want)
 Ctrl+C
 ```
-‘dllist’ will be created is the same directory as clipget.py.  
-Then run something like:  
+‘dllist’ will be created in the same directory as clipget.py  
 ```
 cat ./dllist | xargs yt-dlp
 ``` 
