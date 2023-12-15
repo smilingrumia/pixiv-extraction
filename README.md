@@ -1,57 +1,48 @@
 [README(日本語)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(%E6%97%A5%E6%9C%AC%E8%AA%9E).md)  
 
-### notice
-**Is rare, but if fail to run, try in another day that pixiv may not have congestion.** 
-**or try to reset the httpHeader.**
 
 # pixiv-extraction
+CLI tool to download pixiv image and ugoira [without loss of quality.](#detail-of-lossless)
 
-simple and lossless([detail](#detail-of-lossless)) downloader for Pixiv images/ugoira.
 
 OS: Linux,Windows10  
 Version: v0.7.6  
 
-This README is primary written for Linux.  
-for Windows user, some of the way is bit different so see also [README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)
+**12/2023: usable**
 
-Overview
-===========================
-- [Install](#Instalation)
-	- [pixiv-extraction](#install-pixiv-extraction)
+# Overview
+- [Install](#Install)
+	- [windows](#install-windows)
+	- [Linux](#install-linux)
+	- [Add cookies](#install-cookies)
 	- [mpv](#install-mpv)
-	- [Optionals](#install-optionals)
 - [Run](#run)
 - [Notes](#notes)
-	- Remove  ‘Email Image’ from firefox
 	- Detail of lossless
 	- Play ugoira on smartphone?
 	- Want to DL all art of the artist, but lazy to click all of them?
 	- Art filename format
 	- MAYBE: is better NOT logout via pixiv web page(this may disable the cookie?)
 	- Clipboard-mode URL pickup + youtube-dl
-	- How to make lossless ugoira(For Developer)
+	- How to make lossless ugoira(for developer)
 	- In future, when pixiv make change in their site
 - [Change log](#change-Log)
 ----------------------------
 
  
-# Instalation  
+# Install
 
-## install pixiv-extraction
-**Clone the source**
+### Windows
+see [README(Windows10)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(Windows10).md)
 
+### Linux
 ```
 git clone https://github.com/smilingrumia/pixiv-extraction   
-```
-
-**Install the Dependency**  
-```
 sudo apt update
 sudo apt install curl p7zip-full ffmpeg python3-tk python3-brotli
 ```
 
-Install mp4fpsmod:  
-Open [mp4fpsmod](https://github.com/nu774/mp4fpsmod) github -> Release -> DL the latest(here will be 0.26)
+Open [mp4fpsmod](https://github.com/nu774/mp4fpsmod) -> Release -> DL the latest(here will be 0.26)
 ```
 # some deps that need
 sudo apt install autoconf libtool
@@ -66,21 +57,13 @@ make
 mv ./mp4fpsmod <path>/pixiv-extraction/
 ```
 
-### Copy your http header to  httpHeader/
-Now, We will need your login-credential(Cookie) to get the art.  
-  
-Is better to create an account only for this purpose because:  
-1.login-credential(Cookie) will be stored in plain text in httpHeader/.  
-2.if pixiv decides to ban due to fast-downloading?  
-if you use your account only for viewing, and don’t might to recreate, may be OK.  
-  
-So beginning...  
-as browser, Firefox will be used.
+## Add cookies
+We need your cookie(login-credential) to get the art.  
+I will explain how to get cookies and place in pixiv-extraction folder using firefox.  
   
 **Step 1**  
-Login to Pixiv(With a lost-ok account)  
-Open an art  
-Address bar will look like:  ```https://www.pixiv.net/en/artworks/12345678```  
+Run firefox and login to Pixiv.  
+Open an art, address bar will look like:  ```https://www.pixiv.net/en/artworks/12345678```  
   
 F12(open devtool) -> Network tab -> F5/Refresh the Pixiv page  
 A list in Network tab will be displayed.  
@@ -91,20 +74,20 @@ On the right window, goto Headers-> Request Headers
 Turn ON Raw headers  
 Right Click -> select all -> Right Click -> copy  
   
-Open httpHeader/pixiv_artpage with text-editor and paste your header    
+Open pixiv-extraction/httpHeader/pixiv_artpage with text-editor and paste your header    
 (This Header must contain Cookie)  
   
-Save it.  
+Save.  
   
 **Step 2**  
 Next in Network tab  
 select one with: Type(json)  
-And like Step 1, copy&pasete the header to httpHeader/pixiv_artlist  
+And like Step 1, copy&pasete the header to pixiv-extraction/httpHeader/pixiv_artlist  
 (This Header must contain Cookie and x-user-id)  
   
-Save it.  
+Save.  
   
-Close the devtool.  
+Close devtool.  
   
 **Step 3**  
 Open some art(picture)  
@@ -113,7 +96,7 @@ Address bar will look like: ```https://i.pximg.net/img-original/img/2016/01/02/0
   
 F12(open devtool) -> Network tab -> F5/Refresh the Pixiv page  
 On Network tab, select: Domain(```i.pixiv.net```) File(12345678_p0.png)  
-and copy&paste the header to httpHeader/pixiv_art  
+and copy&paste the header to pixiv-extraction/httpHeader/pixiv_art  
 
 if contain follow, EXCLUDE THAT LINE!
 ```
@@ -124,28 +107,16 @@ If-Range: <something>
 
 (This Header DON’T contain Cookie or x-user-id)  
   
-Save it.  
+Save.  
 
 
 ## install mpv
-mpv is a good media player, that will play ugoira smoothly.    
+mpv shoud play ugoira(mjpeg) smoothly.    
 install the latest mpv.  
-install can be done via ppa,[mpv-build](https://github.com/mpv-player/mpv-build) or manualy building [mpv](https://github.com/mpv-player/mpv).  
 
-***via ppa(Easy)***
-```
-sudo add-apt-repository ppa:mc3man/mpv-tests
-sudo apt update
-sudo apt install mpv
-
-# check
-mpv --version
-
-# Optional: you can remove the ppa once mpv are installed.
-```
-
-**Configure mpv to be confortable**  
-nano ~/.config/mpv/mpv.conf  
+**configure**  
+edit mpv.conf  
+Linux: nano ~/.config/mpv/mpv.conf  
 ```
 # Change this for better performance on general use.
 #hwdec=vdpau
@@ -167,7 +138,8 @@ video-unscaled=yes
 # this may help on "viewing big ugoira -> press 'n' to go to next, but mpv still fixed big"
 #no-border
 ```
-nano ~/.config/mpv/input.conf  
+Edit input.conf  
+Linux: nano ~/.config/mpv/input.conf  
 ```
 UP     add volume 5
 DOWN   add volume -5
@@ -189,30 +161,6 @@ p      playlist-prev
  q          quit
 ```
 
-## install Optionals
-
-**Image viewer(Optional)**  
-mirage is good to.  
-```
-sudo apt install mirage
-``` 
-A big part of pixiv art title are in japanese, and mirage's sort order culd become weird.  
-in that case, launching mirage like this may help:  
-
-manual solution:  
-```
-LANG=ja_JP.UTF-8 /usr/bin/mirage
-```
-wrapper solution:  
-sudo nano /usr/local/bin/mirage  
-```
-#!/bin/bash
-
-LANG=ja_JP.UTF-8 /usr/bin/mirage "${1}"
-```
-sudo chmod 755 /usr/local/bin/mirage
-
-
 # Run  
 **Normal mode**  
 ```./extraction.py URL1 URL2 ...```  
@@ -224,16 +172,11 @@ this will look like
 **Clipboard mode**  
 ```./extraction.py -c```  
   
-Run './extraction.py -c'  
-open pixiv with browser, if are using firefox, Right Click -> A on the art thumbnail.  
+On firefox Right Click -> L on the art thumbnail should copy the URL.  
 copied URL shuld look like: ```https://www.pixiv.net/en/artworks/12345678```  
 do this on all art that you want.  
 
-Ctrl+C on the terminal  
-if the list looks ok, type y and Enter.  
-
-**Important**: Recent firefox has an option called 'Email Image' that conflict with right click -> a.  
-See "Remove ‘Email Image’ from firefox" on Notes.  
+Ctrl+C on the terminal, type y and Enter to start download.  
   
 To see version, just Run ./extraction.py  
 
@@ -242,26 +185,6 @@ Images: save_images/
 Ugoira: save_ugoira/  
   
 # Notes  
-### Remove ‘Email Image’ from firefox
-On firefox, when Right Click -> A on a image(to get the link URL quickly)  
-recent firefox have an option called ‘Email Image...’, that conflict with this shortcut-key.  
-
-If remove ‘Email Image...’, Right Click -> A on a image will easly copy the URL.(a huge difference to who frequently/many download)  
-The follow are how to remove ‘Email Image ’ from firefox.  
-
-about:config  
-```
-toolkit.legacyUserProfileCustomizations.stylesheets=true
-```
-
-On firefox profile directory (<something>mozilla/firefox/<something>.default/)  
-create chrome/userChrome.css  
-```
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
-
-#context-sendimage { display:none!important; }
-```
-Restart and check if worked.  
 
 ### Detail of lossless
   
@@ -318,7 +241,7 @@ Then run something like:
 cat ./dllist | xargs youtube-dl -f best
 ``` 
 
-### How to make lossless ugoira(For Developer)
+### How to make lossless ugoira(for developer)
 
 Format: VFR mjpeg  
 
