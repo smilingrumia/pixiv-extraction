@@ -1,5 +1,3 @@
-[README(日本語)](https://github.com/smilingrumia/pixiv-extraction/blob/master/README(%E6%97%A5%E6%9C%AC%E8%AA%9E).md)  
-
 
 # pixiv-extraction
 CLI tool to download pixiv image and ugoira [without loss of quality.](#detail-of-lossless)
@@ -12,7 +10,7 @@ Version: v0.7.6
 
 # Overview
 - [Install](#Install)
-	- [windows](#windows)
+	- [Windows](#windows)
 	- [Linux](#linux)
 	- [Add cookies](#add-cookies)
 	- [mpv](#install-mpv)
