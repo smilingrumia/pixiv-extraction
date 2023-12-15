@@ -12,9 +12,9 @@ Version: v0.7.6
 
 # Overview
 - [Install](#Install)
-	- [windows](#install-windows)
-	- [Linux](#install-linux)
-	- [Add cookies](#install-cookies)
+	- [windows](#windows)
+	- [Linux](#linux)
+	- [Add cookies](#add-cookies)
 	- [mpv](#install-mpv)
 - [Run](#run)
 - [Notes](#notes)
@@ -22,7 +22,6 @@ Version: v0.7.6
 	- Play ugoira on smartphone?
 	- Want to DL all art of the artist, but lazy to click all of them?
 	- Art filename format
-	- MAYBE: is better NOT logout via pixiv web page(this may disable the cookie?)
 	- Clipboard-mode URL pickup + youtube-dl
 	- How to make lossless ugoira(for developer)
 	- In future, when pixiv make change in their site
@@ -221,10 +220,6 @@ extraction.py
 SAVE_FORMAT = 0  
 to  
 SAVE_FORMAT = 1  
-  
-### MAYBE: is better NOT  logout via pixiv web page(this may disable the cookie?)
-In case that pixiv-extraction are working, but after logout via pixiv web page aren't working,  
-Do the Step 1 to 3, and to “logout”, clean the pixiv cookie via browser.  
 
 ### Clipboard-mode URL pickup + youtube-dl
 Liked the clipboard-mode URL pickup?  
