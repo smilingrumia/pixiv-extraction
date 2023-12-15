@@ -20,9 +20,8 @@ Version: v0.7.6
 - [Notes](#notes)
 	- Detail of lossless
 	- Play ugoira on smartphone?
-	- Want to DL all art of the artist, but lazy to click all of them?
 	- Art filename format
-	- Clipboard-mode URL pickup + youtube-dl
+	- Clipboard-mode URL pickup + yt-dlp
 	- How to make lossless ugoira(for developer)
 	- In future, when pixiv make change in their site
 - [Change log](#change-Log)
@@ -207,10 +206,6 @@ ffmpeg -i ugoira.mp4 -vcodec copy %06d.jpg
   Install mpv player  
   Open mpv -> Settings -> Advanced ->  Edit mpv.conf -> type loop -> SAVE  
   copy ugoira to smartphone and play.  
-
-### Want to DL all art of the artist, but lazy to click all of them?
-  A lazy solution was done, see .otp/pageToUrl.js 
-  (not sure how to do ‘cat dllist | xargs ./extraction.py’ on windows) 
   
 ### Art filename format
 By default, the art will be saved like ```art-title_001.jpg```, and if already exist, will be ```art-title(art-id)_001.jpg```  
@@ -221,19 +216,19 @@ SAVE_FORMAT = 0
 to  
 SAVE_FORMAT = 1  
 
-### Clipboard-mode URL pickup + youtube-dl
+### Clipboard-mode URL pickup + yt-dlp
 Liked the clipboard-mode URL pickup?  
-A bonus script on ./opt/clipget.py, can help youtube-dl(a [wide-range sites](https://ytdl-org.github.io/youtube-dl/supportedsites.html) downloader).  
+A bonus script ./opt/clipget.py can be used with yt-dlp.  
 run:  
 ```
 ./clipget.py
 (copy what you want)
 Ctrl+C
 ```
-the list will be saven as ‘dllist’ on same directory as clipget.py.  
+‘dllist’ will be created is the same directory as clipget.py.  
 Then run something like:  
 ```
-cat ./dllist | xargs youtube-dl -f best
+cat ./dllist | xargs yt-dlp
 ``` 
 
 ### How to make lossless ugoira(for developer)
