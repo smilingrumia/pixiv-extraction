@@ -20,10 +20,9 @@ Version: v0.7.6
 - [Notes](#notes)
 	- Detail of lossless
 	- Play ugoira on smartphone?
-	- Art filename format
+	- Art filename
 	- Clipboard-mode URL pickup + yt-dlp
 	- How to make lossless ugoira(for developer)
-	- In future, when pixiv make change in their site
 - [Change log](#change-Log)
 ----------------------------
 
@@ -207,7 +206,7 @@ ffmpeg -i ugoira.mp4 -vcodec copy %06d.jpg
   Open mpv -> Settings -> Advanced ->  Edit mpv.conf -> type loop -> SAVE  
   copy ugoira to smartphone and play.  
   
-### Art filename format
+### Art filename
 By default, the art will be saved like ```art-title_001.jpg```, and if already exist, will be ```art-title(art-id)_001.jpg```  
   
 if want to save like ```art-id_001.jpg```, change the follow:  
@@ -255,10 +254,6 @@ note: ffmpeg may skip the 1st frame when play.
 3. make timecode.txt from ugoira_meta  
 4. VFR the video: mp4fpsmod -o ugoira.mp4 -x -t timecode.txt ugoira_pre.mp4  
 5. Play ugoira with mpv  
-
-### In future, when pixiv make change in their site
-This programs probably will stop to work with some error message, And have to be updated to continue to work.  
-In that case, when I detect the change, I will announce the situation here, and hopefully fix it if I can.
 
 # Change Log
 ```
