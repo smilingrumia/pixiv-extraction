@@ -184,14 +184,13 @@ Ugoira: save_ugoira/
 ### Detail of lossless
   
 **Images**  
-Original images are just downloaded.  
+Original image are downloaded.  
   
 **Ugoira**  
 Technically ugoira is sort of jpeg and frame-rate information.  
-each one image, have XX millisecond to wait, this mean that ugoira is VFR(variable frame rate)  
+each one image, have X millisecond to wait, this mean that ugoira is VFR(variable frame rate)  
 
-To be lossless as image-quality and frame-rate.  
-pixiv-extraction save Ugoira as VFR mjpeg(conventionally as .mp4)  
+To be lossless as image-quality and frame-rate, pixiv-extraction save ugoira as VFR mjpeg(conventionally as .mp4)  
 is not gif,apng,webm or lossy mp4.  
 
 And can revert to original ugoira images with:  
