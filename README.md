@@ -4,7 +4,7 @@ CLI tool to download pixiv image and ugoira [without loss of quality.](#detail-o
 
 
 OS: Linux,Windows10  
-Version: v0.7.6  
+Version: 0.7.6  
 
 **12/2023: usable**
 
@@ -21,7 +21,6 @@ Version: v0.7.6
 	- Art filename
 	- Clipboard pickup + yt-dlp
 	- How to make lossless ugoira(for developer)
-- [Change log](#change-Log)
 ----------------------------
 
  
@@ -249,41 +248,4 @@ note: ffmpeg may skip the 1st frame when play.
 3. make timecode.txt from ugoira_meta  
 4. VFR the video: mp4fpsmod -o ugoira.mp4 -x -t timecode.txt ugoira_pre.mp4  
 5. Play ugoira with mpv  
-
-# Change Log
-```
- v0.7.6
-  clipboard listening improve(non-pixiv URL will be ignored)
-  bonus in .opt/clipget.py, clipboard-mode pickup that helps youtube-dl(see in Notes)
-  
- v0.7.5
-  fix some art title(< and >)
-  lazy solution to easly download all arts of artist
-  
- v0.7.4
-  improve clipboard detection speed
-  fix some art title
-  other small improve
-  
- v0.7.3
-  Windows10 support
-  
- v0.7.2
-  remove: saving art info to save_images/info and save_ugoira/info
-  modify: output message
-  
- v0.7.1
-  fix: auto clean of ugoira temporary data
-  fix: support for "Accept-Encoding: gzip, br"
-  other small fix/changes
-
- v0.7.0  
-   Some Ugoira are VFR(variable frame rate), so VFR implementation was done  
-   bug-fix: If clipboard are empty and run as clipboard-mode, it will crash  
-   bug-fix: ffmpeg are skipping the first frame
-   other small fix/changes  
-   
- v0.6.0  
-   Publish  
-```
       
