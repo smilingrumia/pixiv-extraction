@@ -69,7 +69,7 @@ Turn ON Raw headers
 Right Click -> select all -> Right Click -> copy  
   
 Open pixiv-extraction/httpHeader/pixiv_artpage with text-editor and paste your header    
-(This Header must contain Cookie)  
+This Header must contain Cookie  
   
 Save.  
   
@@ -77,7 +77,7 @@ Save.
 Next in Network tab  
 select one with: Type(json)  
 And like Step 1, copy&pasete the header to pixiv-extraction/httpHeader/pixiv_artlist  
-(This Header must contain Cookie and x-user-id)  
+This Header must contain Cookie and x-user-id  
   
 Save.  
   
@@ -99,7 +99,7 @@ Range: <something>
 If-Range: <something>
 ```
 
-(This Header DON’T contain Cookie or x-user-id)  
+This Header DON’T contain Cookie or x-user-id  
   
 Save.  
 
@@ -112,10 +112,6 @@ install the latest mpv.
 edit mpv.conf  
 Linux: nano ~/.config/mpv/mpv.conf  
 ```
-# Change this for better performance on general use.
-#hwdec=vdpau
-#vo=vdpau
-
 loop
 idle=yes
 force-window
