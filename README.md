@@ -1,12 +1,17 @@
 
+# Attention!
+
+**8/2025: Unusable due to change in pixiv.net. This repo is for reference only.**
+
+**8/2025: pixiv.netの仕様変更により現在使用できません。参考目的にご利用下さい。**
+
+
 # pixiv-extraction
 CLI tool to download pixiv image and ugoira [without loss of quality.](#detail-of-lossless)
 
 
 OS: Linux,Windows10  
 Version: 0.7.6  
-
-**12/2023: usable**
 
 # Overview
 - [Install](#Install)
