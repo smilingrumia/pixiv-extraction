@@ -71,10 +71,6 @@ p        playlist-prev
 
   7.Open notepad and copy the follow  
 ```
-# Change this for better performance on general use.
-#hwdec=vdpau
-#vo=vdpau
-
 loop
 idle=yes
 force-window
