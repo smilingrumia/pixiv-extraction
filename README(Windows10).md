@@ -43,10 +43,9 @@
   6.Select all files, and copy inside of pixiv-extraction  
 
 **mp4fpsmod**  
-  1.Download mp4fpsmod_0.26.zip: https://sites.google.com/site/qaacpage/cabinet  
+  1.Download mp4fpsmod: https://github.com/nu774/mp4fpsmod/releases
   2.Unzip  
-  3.Open mp4fpsmod_0.26  
-  4.Select all files, and copy inside of pixiv-extraction  
+  3.Move mp4fpsmod.exe to pixiv-extraction  
 
 
 **mpv**  
